@@ -29,6 +29,8 @@ pnpm typecheck
 pnpm build
 ```
 
+GitHub Actions runs the same test, lint, typecheck, and production-build gate for changes targeting `main`.
+
 ## Portfolio scope
 
 The homepage emphasizes Koya Lead Agent, RAG Application, Koya Proposal Studio, and the Real-Time Voice AI Agent. A separate automation progression connects invoice processing, operations reporting, Proposal Studio, Content Studio, and the Lead Agent as increasingly complete business systems.
