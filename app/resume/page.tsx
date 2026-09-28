@@ -1,8 +1,6 @@
-import type { Metadata } from "next";
-import Link from "next/link";
-import { ArrowLeft, Mail } from "lucide-react";
-import { resume } from "@/content/resume";
+import { redirect } from "next/navigation";
 import { site } from "@/content/site";
-import { SITE_URL } from "@/lib/metadata";
-export const metadata: Metadata = { metadataBase: SITE_URL, title: "Résumé — Godwin Ekanem", description: "Godwin Ekanem's software engineering résumé, experience, technical skills, education, and certifications.", alternates: { canonical: "/resume" } };
-export default function ResumePage() { return <main className="resume-page"><div className="container resume-shell"><div className="resume-topbar"><Link href="/"><ArrowLeft size={16} aria-hidden="true" /> Portfolio</Link><a href={`mailto:${site.email}`}><Mail size={16} aria-hidden="true" /> {site.email}</a></div><header className="resume-header"><p className="eyebrow">Software Engineer</p><h1>Godwin Ekanem</h1><p>{resume.summary}</p></header><section className="resume-section"><h2>Technical skills</h2><div className="resume-skills">{resume.skills.map((item)=><div key={item.label}><strong>{item.label}</strong><span>{item.value}</span></div>)}</div></section><section className="resume-section"><h2>Work experience</h2><div className="resume-experience">{resume.experience.map((entry)=><article key={`${entry.company}-${entry.role}`}><div className="resume-role"><div><h3>{entry.role}</h3><p>{entry.company} · {entry.location}</p></div><span>{entry.dates}</span></div><ul>{entry.bullets.map((bullet)=><li key={bullet}>{bullet}</li>)}</ul></article>)}</div></section><section className="resume-section resume-bottom"><h2>Education & certifications</h2><div><p><strong>Education</strong><br />{resume.education}</p><p><strong>Certifications</strong><br />{resume.certifications}</p></div></section></div></main>; }
+
+export default function ResumePage() {
+  redirect(site.resumeUrl);
+}
