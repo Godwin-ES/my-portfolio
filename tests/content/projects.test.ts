@@ -1,0 +1,59 @@
+import fs from "node:fs";
+import path from "node:path";
+import { describe, expect, it } from "vitest";
+import { projects } from "@/content/projects";
+import { getAutomationProjects, getFeaturedProjects, getProjectBySlug } from "@/lib/projects";
+
+const requiredSlugs = [
+  "koya-lead-agent",
+  "rag-app",
+  "proposal-studio",
+  "voice-agent",
+  "content-studio",
+  "operations-reporting",
+  "invoice-processing",
+  "malaria-detection",
+];
+
+describe("portfolio project content", () => {
+  it("contains each required project exactly once", () => {
+    expect(projects.map((project) => project.slug).sort()).toEqual([...requiredSlugs].sort());
+    expect(new Set(projects.map((project) => project.slug)).size).toBe(projects.length);
+  });
+
+  it("references only local assets that exist", () => {
+    const publicDir = path.join(process.cwd(), "public");
+    expect(fs.existsSync(path.join(publicDir, "resume/Ekanem_Godwin_Resume.pdf"))).toBe(true);
+    for (const project of projects) {
+      if (project.heroImage) {
+        expect(fs.existsSync(path.join(publicDir, project.heroImage.replace(/^\//, "")))).toBe(true);
+      }
+    }
+  });
+
+  it("keeps the homepage curated", () => {
+    const featured = getFeaturedProjects();
+    expect(featured).toHaveLength(4);
+    expect(featured[0].slug).toBe("koya-lead-agent");
+    expect(featured[0].featuredOrder).toBe(1);
+    for (const project of projects) expect(project.stack.length).toBeLessThanOrEqual(5);
+  });
+
+  it("keeps each case study substantive", () => {
+    for (const project of projects) {
+      expect(project.problem.trim()).not.toBe("");
+      expect(project.system.trim()).not.toBe("");
+      expect(project.engineeringDecisions.length).toBeGreaterThan(0);
+      expect(project.reliability.length).toBeGreaterThan(0);
+      expect(project.result.trim()).not.toBe("");
+      for (const url of [project.githubUrl, project.secondaryGithubUrl, project.liveUrl].filter(Boolean)) {
+        expect(url).toMatch(/^https:\/\//);
+      }
+    }
+  });
+
+  it("returns automation projects in system progression order", () => {
+    expect(getAutomationProjects().map((project) => project.automationOrder)).toEqual([1, 2, 3, 4, 5]);
+    expect(getProjectBySlug("rag-app")?.title).toBe("RAG Application");
+  });
+});

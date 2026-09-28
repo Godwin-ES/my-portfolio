@@ -1,6 +1,6 @@
 # Godwin Ekanem — Software Engineering & AI Systems Portfolio
 
-A static-first professional portfolio presenting selected software engineering, AI application, and automation work. The site is designed around engineering evidence rather than a generic project gallery: each featured system links to a structured case study covering the problem, architecture, engineering decisions, reliability boundaries, result, and proof links.
+A professional portfolio presenting selected software engineering, AI application, and automation work. The site is organized around engineering evidence rather than a generic project gallery: featured systems link to structured case studies covering the problem, architecture, engineering decisions, reliability boundaries, result, and proof links.
 
 ## Stack
 
@@ -8,7 +8,7 @@ A static-first professional portfolio presenting selected software engineering, 
 - React 19 + TypeScript
 - Tailwind CSS 4 and a small project-specific CSS design system
 - Lucide React icons
-- Vitest + Testing Library for component/content tests
+- Vitest + Testing Library
 - Vercel-ready static-first deployment
 
 No database, CMS, authentication, analytics service, or contact backend is required for v1.
@@ -26,9 +26,7 @@ pnpm dev
 
 Then open `http://localhost:3000`.
 
-`NEXT_PUBLIC_SITE_URL` should be the canonical deployed origin, for example `https://portfolio.example.com`. It is used for canonical metadata, sitemap entries, and Open Graph URLs.
-
-> This workspace was authored in a restricted runtime that could not reach the npm registry, so a pnpm lockfile could not be generated here. Run `pnpm install` once in a network-enabled environment, commit the resulting `pnpm-lock.yaml`, then use `pnpm install --frozen-lockfile` for subsequent installs.
+`NEXT_PUBLIC_SITE_URL` can be set to an explicit canonical production origin. On Vercel, the site also falls back to Vercel's deployment hostname so canonical and social metadata do not resolve to localhost in production.
 
 ## Quality commands
 
@@ -39,16 +37,7 @@ pnpm typecheck
 pnpm build
 ```
 
-For the final pre-deployment gate, all four commands should complete successfully from a clean install.
-
-The repository also contains a dependency-free visual verification harness used while the package registry was unavailable:
-
-```bash
-python scripts/build_static_preview.py
-python scripts/verify_preview.py
-```
-
-It renders the same portfolio content and production CSS into a local static fixture and checks responsive overflow, navigation behavior, keyboard focus, reduced-motion behavior, all eight case-study structures, console errors, and the résumé asset in Chromium. This is supplementary QA, not a substitute for the Next.js production build.
+Run all four commands before promoting a deployment to production.
 
 ## Content structure
 
@@ -62,13 +51,8 @@ content/toolkit.ts       Curated technical toolkit
 lib/                     Project selectors, types, metadata helpers
 public/resume/           Downloadable résumé
 public/og/               Social preview image
-scripts/                  Static preview and browser-verification helpers
 tests/                    Content, component, metadata, and smoke tests
 ```
-
-## Project presentation policy
-
-Project cards use authentic application screenshots only when a verified screenshot is available and appropriate to publish. When one is not available, the site renders a clean architecture-based visual derived from the project's real system structure. Generic AI stock artwork, fabricated dashboards, and unverifiable performance metrics are intentionally excluded.
 
 ## Portfolio scope
 
@@ -81,12 +65,13 @@ The homepage emphasizes four high-signal systems:
 
 A separate automation progression connects Intelligent Invoice Processing, Operations Reporting, Proposal Studio, Content Studio, and the Lead Agent as increasingly complete business systems rather than presenting them as unrelated weekly assignments.
 
+## Project presentation policy
+
+Project cards use authentic application screenshots only when a verified screenshot is available and appropriate to publish. Where one is not available, the site renders a clean architecture visual derived from the project's actual system structure. Generic AI stock artwork, fabricated dashboards, and unverifiable performance metrics are intentionally excluded.
+
 ## Deployment
 
-1. Run the full quality command set above from a clean install.
-2. Set `NEXT_PUBLIC_SITE_URL` to the actual production origin.
-3. Deploy the repository to Vercel.
-4. Re-run a production smoke check for `/` and every `/work/<slug>` route.
-5. Confirm the résumé, sitemap, robots file, canonical metadata, and Open Graph image resolve from the observed production URL.
-
-Do not invent or preconfigure a production domain in source control. Use the URL returned by the deployment platform.
+1. Install dependencies and run the quality commands above.
+2. Import this repository into Vercel.
+3. Deploy the `main` branch.
+4. Verify `/`, each `/work/<slug>` route, `/resume/Ekanem_Godwin_Resume.pdf`, `/sitemap.xml`, `/robots.txt`, and `/og/default.png` on the observed production URL.
