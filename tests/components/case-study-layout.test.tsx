@@ -5,7 +5,7 @@ import { getProjectBySlug } from "@/lib/projects";
 it("renders the complete shared case-study structure", () => {
   render(<CaseStudyLayout project={getProjectBySlug("koya-lead-agent")!} />);
   for (const heading of ["Problem", "System", "Architecture", "Engineering decisions", "Reliability & edge cases", "Result", "Evidence"]) {
-    expect(screen.getByRole("heading", { name: new RegExp(heading, "i") })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 2, name: heading })).toBeInTheDocument();
   }
 });
 
