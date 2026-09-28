@@ -9,7 +9,7 @@ function SystemMotif() {
       <div className="motif-status"><span /> system online</div>
       <div className="motif-node motif-node-a"><small>01 · INPUT</small><strong>Real data</strong><span>Documents · Web · Events</span></div>
       <div className="motif-node motif-node-b"><small>02 · AI</small><strong>Reasoning</strong><span>Research · Retrieval · Generation</span></div>
-      <div className="motif-node motif-node-c"><small>03 · CONTROL</small><strong>Validation</strong><span>Rules · State · Human review</span></div>
+      <div className="motif-node motif-node-c"><small>03 · CONTROL</small><strong>Validation</strong><span>Rules · State · Human Review</span></div>
       <div className="motif-node motif-node-d"><small>04 · OUTPUT</small><strong>Useful system</strong><span>Traceable · Testable · Reliable</span></div>
       <div className="motif-line line-1" aria-hidden="true" />
       <div className="motif-line line-2" aria-hidden="true" />
