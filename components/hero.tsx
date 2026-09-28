@@ -7,10 +7,10 @@ function SystemMotif() {
     <div className="hero-system" aria-label="Illustration of a reliable AI system moving from input through AI reasoning and validation to a usable product outcome">
       <div className="motif-grid" aria-hidden="true" />
       <div className="motif-status"><span /> system online</div>
-      <div className="motif-node motif-node-a"><small>01 · INPUT</small><strong>Real data</strong><span>documents · web · events</span></div>
-      <div className="motif-node motif-node-b"><small>02 · AI</small><strong>Reasoning</strong><span>research · retrieval · generation</span></div>
-      <div className="motif-node motif-node-c"><small>03 · CONTROL</small><strong>Validation</strong><span>rules · state · human review</span></div>
-      <div className="motif-node motif-node-d"><small>04 · OUTPUT</small><strong>Useful system</strong><span>traceable · testable · reliable</span></div>
+      <div className="motif-node motif-node-a"><small>01 · INPUT</small><strong>Real data</strong><span>Documents · Web · Events</span></div>
+      <div className="motif-node motif-node-b"><small>02 · AI</small><strong>Reasoning</strong><span>Research · Retrieval · Generation</span></div>
+      <div className="motif-node motif-node-c"><small>03 · CONTROL</small><strong>Validation</strong><span>Rules · State · Human review</span></div>
+      <div className="motif-node motif-node-d"><small>04 · OUTPUT</small><strong>Useful system</strong><span>Traceable · Testable · Reliable</span></div>
       <div className="motif-line line-1" aria-hidden="true" />
       <div className="motif-line line-2" aria-hidden="true" />
       <div className="motif-line line-3" aria-hidden="true" />
