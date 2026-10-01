@@ -10,6 +10,7 @@ import { ProjectFacts } from "@/components/project-facts";
 import { ProjectFlow } from "@/components/project-flow";
 import { ProjectMedia } from "@/components/project-media";
 import { ProjectStatus } from "@/components/project-status";
+import { Reveal } from "@/components/reveal";
 import type { Project } from "@/lib/project-types";
 import { getAdjacentProjects } from "@/lib/projects";
 
@@ -25,7 +26,7 @@ function DetailGrid({ items }: { items: { title: string; detail: string }[] }) {
 }
 
 function CaseSection({ id, eyebrow, title, children, wide = false }: { id: string; eyebrow: string; title: string; children: ReactNode; wide?: boolean }) {
-  return <section id={id} className={`case-section ${wide ? "case-section-wide" : ""}`}><div className="case-section-heading"><p className="eyebrow">{eyebrow}</p><h2>{title}</h2></div><div className="case-section-body">{children}</div></section>;
+  return <Reveal as="section" id={id} className={`case-section ${wide ? "case-section-wide" : ""}`}><div className="case-section-heading"><p className="eyebrow">{eyebrow}</p><h2>{title}</h2></div><div className="case-section-body">{children}</div></Reveal>;
 }
 
 export async function CaseStudyLayout({ project }: { project: Project }) {

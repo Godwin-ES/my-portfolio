@@ -1,6 +1,7 @@
 import { ArrowDown, Github } from "lucide-react";
 import { ExternalLink } from "@/components/external-link";
 import { site } from "@/content/site";
+import { Reveal } from "@/components/reveal";
 
 function SystemMotif() {
   return (
@@ -22,7 +23,7 @@ export function Hero() {
   return (
     <section id="top" className="hero-section">
       <div className="container hero-grid">
-        <div className="hero-copy">
+        <Reveal className="hero-copy">
           <p className="eyebrow">{site.eyebrow}</p>
           <h1>{site.headline}</h1>
           <p className="hero-intro">{site.intro}</p>
@@ -34,8 +35,8 @@ export function Hero() {
           <div className="tech-line" aria-label="Primary technologies">
             {site.technologyLine.map((technology) => <span key={technology}>{technology}</span>)}
           </div>
-        </div>
-        <SystemMotif />
+        </Reveal>
+        <Reveal delayMs={100}><SystemMotif /></Reveal>
       </div>
     </section>
   );
