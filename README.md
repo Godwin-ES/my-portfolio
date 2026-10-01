@@ -48,7 +48,7 @@ Project case-study records live in `content/projects/*.json`; canonical display 
 - Personal products intentionally use no walkthrough UI.
 - Add live and repository actions to `links`; public URLs must use HTTPS. Never add placeholder deployments or credentials.
 
-Confirmed live applications are currently set for Operations Reporting & Decision Support and RelayDesk. Week 1–5 Loom share IDs, additional weekly live URLs, and approved product screenshots remain pending and render explicit fallbacks without breaking the build.
+Confirmed live applications are currently set for Operations Reporting & Decision Support, LeadLens, and RelayDesk. Week 1–5 Loom share IDs, remaining weekly live URLs, personal-product live URLs, and approved product screenshots remain pending and render explicit fallbacks without breaking the build.
 
 ## Deployment
 

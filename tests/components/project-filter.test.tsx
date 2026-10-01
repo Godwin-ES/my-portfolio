@@ -2,8 +2,15 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { ProjectFilter } from "@/components/project-filter";
 import { projects } from "@/content/projects";
+import { renderToStaticMarkup } from "react-dom/server";
 
 describe("ProjectFilter", () => {
+  it("includes every project in server-rendered HTML before JavaScript runs", () => {
+    const html = renderToStaticMarkup(<ProjectFilter projects={projects} />);
+    expect(html.match(/data-testid="filter-project"/g)).toHaveLength(projects.length);
+    for (const project of projects) expect(html).toContain(`/work/${project.slug}`);
+  });
+
   it("server-renders all projects and filters only after an explicit selection", () => {
     render(<ProjectFilter projects={projects} />);
     expect(screen.getAllByTestId("filter-project")).toHaveLength(projects.length);

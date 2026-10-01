@@ -32,8 +32,13 @@ function CaseSection({ id, eyebrow, title, children, wide = false }: { id: strin
 export async function CaseStudyLayout({ project }: { project: Project }) {
   const adjacent = getAdjacentProjects(project.slug);
   const media = await ProjectMedia({ project, priority: true, variant: "hero" });
+  const returnPath = project.collections.includes("selected")
+    ? { href: "/#work", label: "selected work" }
+    : project.collections.includes("ai-automation")
+      ? { href: "/#automation", label: "AI Automation" }
+      : { href: "/#projects", label: "project index" };
   return <main className="case-study">
-    <div className="container case-back-row"><Link href="/#work"><ArrowLeft aria-hidden="true" size={16} /> Back to selected work</Link></div>
+    <div className="container case-back-row"><Link href={returnPath.href}><ArrowLeft aria-hidden="true" size={16} /> Back to {returnPath.label}</Link></div>
     <header className="container case-hero">
       <div className="case-hero-copy">
         <div className="case-hero-meta"><p className="eyebrow">{project.category}</p><ProjectStatus status={project.status} /></div>
@@ -43,7 +48,7 @@ export async function CaseStudyLayout({ project }: { project: Project }) {
       </div>
       <div className="case-proof">{media}</div>
     </header>
-    <div className="container"><CaseStudyNavigation sections={sections} previous={adjacent.previous} next={adjacent.next} /></div>
+    <CaseStudyNavigation sections={sections} previous={adjacent.previous} next={adjacent.next} />
     <div className="case-content container">
       <section id="overview" className="case-section case-overview">
         <div><p className="eyebrow">01 · Overview</p><h2>What it solves</h2><p className="case-prose">{project.problem}</p></div>

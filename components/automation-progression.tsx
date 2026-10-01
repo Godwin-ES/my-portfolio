@@ -6,7 +6,7 @@ import { SectionHeading } from "@/components/section-heading";
 export function AutomationProgression() {
   const projects = getAutomationProjects();
   return (
-    <section className="section automation-section" aria-labelledby="automation-title">
+    <section id="automation" className="section automation-section" aria-labelledby="automation-title">
       <div className="container">
         <SectionHeading
           eyebrow="AI automation systems"

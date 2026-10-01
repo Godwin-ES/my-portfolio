@@ -5,7 +5,7 @@ import { Reveal } from "@/components/reveal";
 
 function SystemMotif() {
   return (
-    <div className="hero-system" aria-label="Illustration of a reliable AI system moving from input through AI reasoning and validation to a usable product outcome">
+    <div className="hero-system" role="img" aria-label="Illustration of a reliable AI system moving from input through AI reasoning and validation to a usable product outcome">
       <div className="motif-grid" aria-hidden="true" />
       <div className="motif-status"><span /> system online</div>
       <div className="motif-node motif-node-a"><small>01 · INPUT</small><strong>Real data</strong><span>Documents · Web · Events</span></div>

@@ -9,7 +9,7 @@ it("renders project content and case-study link", () => {
   expect(screen.getByText(project.category)).toBeInTheDocument();
   expect(screen.getByText(project.summary)).toBeInTheDocument();
   expect(screen.getByRole("link", { name: /view case study/i })).toHaveAttribute("href", "/work/rag-app");
-  expect(screen.getByRole("link", { name: /source repository/i })).toHaveAttribute("href", "https://github.com/Godwin-ES/rag-app");
+  expect(screen.getByRole("link", { name: /source repository/i })).toHaveAttribute("href", "https://github.com/Godwin-ES/ChatDocs");
   expect(screen.getAllByTestId("stack-tag").length).toBeLessThanOrEqual(5);
 });
 
@@ -17,5 +17,5 @@ it("uses architecture fallback when no authentic hero image exists", () => {
   const project = getProjectBySlug("koya-lead-agent")!;
   render(<ProjectCard project={project} />);
   expect(screen.getByTestId("architecture-fallback")).toBeInTheDocument();
-  expect(screen.queryByRole("img")).not.toBeInTheDocument();
+  expect(screen.getByRole("img", { name: `${project.title} system architecture preview` })).toBeInTheDocument();
 });

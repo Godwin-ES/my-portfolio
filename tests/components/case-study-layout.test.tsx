@@ -21,3 +21,10 @@ it("does not offer walkthrough UI for personal products", async () => {
   render(await CaseStudyLayout({ project: getProjectBySlug("voice-agent")! }));
   expect(screen.queryByText(/walkthrough/i)).not.toBeInTheDocument();
 });
+
+it("returns non-selected projects to their relevant homepage collection", async () => {
+  const { rerender } = render(await CaseStudyLayout({ project: getProjectBySlug("proposal-studio")! }));
+  expect(screen.getByRole("link", { name: /back to AI Automation/i })).toHaveAttribute("href", "/#automation");
+  rerender(await CaseStudyLayout({ project: getProjectBySlug("malaria-detection")! }));
+  expect(screen.getByRole("link", { name: /back to project index/i })).toHaveAttribute("href", "/#projects");
+});

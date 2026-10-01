@@ -9,7 +9,7 @@ const details: Record<string, Pick<Project, "title" | "collections" | "status" |
   "voice-agent": {
     title: "EchoRun",
     collections: ["selected", "personal"],
-    status: "live",
+    status: "complete",
     media: { kind: "architecture" },
     links: [
       { kind: "repository", label: "Agent repository", url: "https://github.com/Godwin-ES/agno_livekit_agent" },
@@ -23,9 +23,9 @@ const details: Record<string, Pick<Project, "title" | "collections" | "status" |
   "rag-app": {
     title: "ChatDocs",
     collections: ["selected", "personal"],
-    status: "live",
+    status: "complete",
     media: { kind: "architecture" },
-    links: [{ kind: "repository", label: "Source repository", url: "https://github.com/Godwin-ES/rag-app" }],
+    links: [{ kind: "repository", label: "Source repository", url: "https://github.com/Godwin-ES/ChatDocs" }],
     facts: [{ value: "3", label: "isolated persistence layers" }, { value: "3", label: "supported document formats" }],
     flow: [{ label: "Authenticate" }, { label: "Upload documents" }, { label: "Index per user" }, { label: "Ask questions" }, { label: "Stream grounded answers" }],
     featured: true,
@@ -36,7 +36,10 @@ const details: Record<string, Pick<Project, "title" | "collections" | "status" |
     collections: ["selected", "ai-automation"],
     status: "live",
     media: { kind: "loom", status: "pending-link" },
-    links: [{ kind: "repository", label: "Source repository", url: "https://github.com/Godwin-ES/koya-lead-agent" }],
+    links: [
+      { kind: "live", label: "Open live app", url: "https://koya-lead-agent-five.vercel.app" },
+      { kind: "repository", label: "Source repository", url: "https://github.com/Godwin-ES/koya-lead-agent" },
+    ],
     facts: [{ value: "Review-first", label: "human approval boundary" }, { value: "5", label: "controlled research stages" }],
     flow: [{ label: "Define objective" }, { label: "Discover companies" }, { label: "Research evidence" }, { label: "Qualify" }, { label: "Review drafts" }],
     featured: true,
@@ -45,7 +48,7 @@ const details: Record<string, Pick<Project, "title" | "collections" | "status" |
   "proposal-studio": {
     title: "ProposalFlow",
     collections: ["ai-automation"],
-    status: "live",
+    status: "complete",
     media: { kind: "loom", status: "pending-link" },
     links: [{ kind: "repository", label: "Source repository", url: "https://github.com/Godwin-ES/proposal-app" }],
     facts: [{ value: "Immutable", label: "submitted proposal versions" }, { value: "Independent", label: "approval boundary" }],
@@ -55,7 +58,7 @@ const details: Record<string, Pick<Project, "title" | "collections" | "status" |
   "content-studio": {
     title: "ContentLedger",
     collections: ["ai-automation"],
-    status: "live",
+    status: "complete",
     media: { kind: "loom", status: "pending-link" },
     links: [{ kind: "repository", label: "Source repository", url: "https://github.com/Godwin-ES/content-app" }],
     facts: [{ value: "Versioned", label: "sources and content" }, { value: "3", label: "downstream content channels" }],

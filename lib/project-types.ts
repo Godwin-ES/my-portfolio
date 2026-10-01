@@ -29,7 +29,7 @@ export type EvidenceItem = {
 
 export type ProjectCollection = "selected" | "personal" | "ai-automation" | "applied-ml";
 
-export type ProjectStatus = "live" | "limited" | "private" | "in-development" | "archived";
+export type ProjectStatus = "live" | "complete" | "limited" | "private" | "in-development" | "archived";
 
 export type ProjectMedia =
   | { kind: "loom"; status: "available"; loomId: string; durationLabel: string; poster?: string }

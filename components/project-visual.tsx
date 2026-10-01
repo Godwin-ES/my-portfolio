@@ -12,7 +12,7 @@ export function ProjectVisual({ project, priority = false }: { project: Project;
 
   const nodes = project.architecture.nodes.slice(0, 5);
   return (
-    <div className="project-visual architecture-fallback" data-testid="architecture-fallback" aria-label={`${project.title} system architecture preview`}>
+    <div className="project-visual architecture-fallback" data-testid="architecture-fallback" role="img" aria-label={`${project.title} system architecture preview`}>
       <div className="visual-topline"><span>{project.category.split("·")[0].trim()}</span><span>{String(project.featuredOrder ?? project.automationOrder ?? "").padStart(2, "0")}</span></div>
       <div className="visual-flow" aria-hidden="true">
         {nodes.map((node, index) => (

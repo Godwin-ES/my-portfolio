@@ -34,6 +34,10 @@ export function validateProjects(projects: Project[]): string[] {
     if (project.collections.length === 0) {
       errors.push(`${project.slug}: at least one collection is required`);
     }
+
+    if (project.status === "live" && !project.links.some((link) => link.kind === "live")) {
+      errors.push(`${project.slug}: live status requires a live application link`);
+    }
   }
 
   return errors;

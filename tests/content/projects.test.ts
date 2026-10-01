@@ -65,6 +65,21 @@ describe("portfolio project content", () => {
     });
   });
 
+  it("publishes only the confirmed live application URLs", () => {
+    expect(getProjectBySlug("operations-reporting")?.links).toContainEqual({ kind: "live", label: "Open live dashboard", url: "https://koya-dashboard.streamlit.app/" });
+    expect(getProjectBySlug("koya-lead-agent")?.links).toContainEqual({ kind: "live", label: "Open live app", url: "https://koya-lead-agent-five.vercel.app" });
+    expect(getProjectBySlug("relaydesk")?.links).toContainEqual({ kind: "live", label: "Try the live agent", url: "https://koya-support-agent.vercel.app" });
+  });
+
+  it("never presents a project as live without a visitor-accessible app", () => {
+    for (const project of projects.filter(({ status }) => status === "live")) {
+      expect(project.links.some(({ kind }) => kind === "live")).toBe(true);
+    }
+    expect(getProjectBySlug("voice-agent")?.status).toBe("complete");
+    expect(getProjectBySlug("rag-app")?.status).toBe("complete");
+    expect(getProjectBySlug("signbridge")?.status).toBe("complete");
+  });
+
   it("keeps each case study substantive and reachable", () => {
     for (const project of projects) {
       expect(project.problem.trim()).not.toBe("");
