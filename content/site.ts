@@ -1,8 +1,8 @@
 export const site = {
   name: "Godwin Ekanem",
   eyebrow: "Software Engineer · AI Systems · Automation",
-  headline: "Software Engineer building reliable AI applications and automation systems.",
-  intro: "I design and build systems that combine AI reasoning with dependable software, from RAG and real-time voice agents to business automation and agentic research workflows.",
+  headline: "I build AI products that work beyond the demo.",
+  intro: "Software engineer turning voice AI, agentic workflows, and intelligent automation into clear, dependable products people can actually use.",
   technologyLine: ["Python", "TypeScript", "Next.js", "FastAPI", "Supabase", "AI Agents", "n8n"],
   email: "ekanemgodwins@gmail.com",
   githubUrl: "https://github.com/Godwin-ES",

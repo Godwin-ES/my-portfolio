@@ -4,14 +4,36 @@ import { ExperienceTimeline } from "@/components/experience-timeline";
 import { ToolkitGrid } from "@/components/toolkit-grid";
 import { AboutSection } from "@/components/about-section";
 import { ContactSection } from "@/components/contact-section";
+import { Hero } from "@/components/hero";
+import { SelectedWork } from "@/components/selected-work";
+import { MoreProjects } from "@/components/more-projects";
 
-it("renders the five automation systems in order", () => {
+it("renders the six AI Automation systems in order without legacy public labels", () => {
   render(<AutomationProgression />);
   const items = screen.getAllByTestId("automation-item");
-  expect(items).toHaveLength(5);
+  expect(items).toHaveLength(6);
   expect(items[0]).toHaveTextContent("Intelligent Invoice Processing");
   expect(items[1]).toHaveTextContent("Operations Reporting & Decision Support");
   expect(screen.getAllByText("Operations Reporting & Decision Support")).toHaveLength(1);
+  expect(items[2]).toHaveTextContent("ProposalFlow");
+  expect(items[3]).toHaveTextContent("ContentLedger");
+  expect(items[4]).toHaveTextContent("LeadLens");
+  expect(items[5]).toHaveTextContent("RelayDesk");
+  expect(screen.queryByText(/AI Automation Program/i)).not.toBeInTheDocument();
+  expect(screen.queryByText(/Koya/i)).not.toBeInTheDocument();
+});
+
+it("leads with a clear value proposition and the five flagship products", async () => {
+  render(<><Hero />{await SelectedWork()}</>);
+  expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(/AI products/i);
+  expect(screen.getByRole("link", { name: /explore selected work/i })).toHaveAttribute("href", "#work");
+  for (const title of ["EchoRun", "SignBridge", "RelayDesk", "ChatDocs", "LeadLens"]) expect(screen.getByRole("heading", { name: title })).toBeInTheDocument();
+});
+
+it("keeps applied ML and every catalogue project discoverable", () => {
+  render(<MoreProjects />);
+  expect(screen.getByText("Malaria Detection with CNNs")).toBeInTheDocument();
+  expect(screen.getAllByTestId("filter-project")).toHaveLength(10);
 });
 
 it("keeps experience and toolkit concise", () => {

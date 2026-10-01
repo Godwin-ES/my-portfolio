@@ -9,6 +9,7 @@ it("renders project content and case-study link", () => {
   expect(screen.getByText(project.category)).toBeInTheDocument();
   expect(screen.getByText(project.summary)).toBeInTheDocument();
   expect(screen.getByRole("link", { name: /view case study/i })).toHaveAttribute("href", "/work/rag-app");
+  expect(screen.getByRole("link", { name: /source repository/i })).toHaveAttribute("href", "https://github.com/Godwin-ES/rag-app");
   expect(screen.getAllByTestId("stack-tag").length).toBeLessThanOrEqual(5);
 });
 

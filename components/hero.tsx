@@ -27,7 +27,7 @@ export function Hero() {
           <h1>{site.headline}</h1>
           <p className="hero-intro">{site.intro}</p>
           <div className="hero-actions">
-            <a className="button button-primary" href="#work">View selected work <ArrowDown aria-hidden="true" size={16} /></a>
+            <a className="button button-primary" href="#work">Explore selected work <ArrowDown aria-hidden="true" size={16} /></a>
             <ExternalLink className="button button-secondary" href={site.githubUrl}><Github aria-hidden="true" size={16} /> GitHub</ExternalLink>
             <a className="text-action" href={site.resumeUrl} target="_blank" rel="noreferrer">Résumé</a>
           </div>
