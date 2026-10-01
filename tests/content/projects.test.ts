@@ -15,7 +15,7 @@ const publicNames = [
   "Intelligent Invoice Processing",
   "Operations Reporting & Decision Support",
   "ProposalFlow",
-  "ContentLedger",
+  "ContentStudio",
   "LeadLens",
   "RelayDesk",
   "EchoRun",
@@ -43,7 +43,7 @@ describe("portfolio project content", () => {
       "Intelligent Invoice Processing",
       "Operations Reporting & Decision Support",
       "ProposalFlow",
-      "ContentLedger",
+      "ContentStudio",
       "LeadLens",
       "RelayDesk",
     ]);
@@ -66,7 +66,12 @@ describe("portfolio project content", () => {
   });
 
   it("publishes only the confirmed live application URLs", () => {
+    expect(getProjectBySlug("voice-agent")?.links).toContainEqual({ kind: "live", label: "Open live app", url: "https://meet-nine-xi.vercel.app/" });
+    expect(getProjectBySlug("rag-app")?.links).toContainEqual({ kind: "live", label: "Open live app", url: "https://rag-app-or7d.onrender.com/" });
+    expect(getProjectBySlug("signbridge")?.links).toContainEqual({ kind: "live", label: "Open live app", url: "https://asl-project-ehmkxe7wmhhf3pg3uwcphg.streamlit.app/" });
     expect(getProjectBySlug("operations-reporting")?.links).toContainEqual({ kind: "live", label: "Open live dashboard", url: "https://koya-dashboard.streamlit.app/" });
+    expect(getProjectBySlug("proposal-studio")?.links).toContainEqual({ kind: "live", label: "Open live app", url: "https://proposal-app-one-pi.vercel.app/" });
+    expect(getProjectBySlug("content-studio")?.links).toContainEqual({ kind: "live", label: "Open live app", url: "https://content-app-nine-fawn.vercel.app/" });
     expect(getProjectBySlug("koya-lead-agent")?.links).toContainEqual({ kind: "live", label: "Open live app", url: "https://koya-lead-agent-five.vercel.app" });
     expect(getProjectBySlug("relaydesk")?.links).toContainEqual({ kind: "live", label: "Try the live agent", url: "https://koya-support-agent.vercel.app" });
   });
@@ -75,9 +80,9 @@ describe("portfolio project content", () => {
     for (const project of projects.filter(({ status }) => status === "live")) {
       expect(project.links.some(({ kind }) => kind === "live")).toBe(true);
     }
-    expect(getProjectBySlug("voice-agent")?.status).toBe("complete");
-    expect(getProjectBySlug("rag-app")?.status).toBe("complete");
-    expect(getProjectBySlug("signbridge")?.status).toBe("complete");
+    expect(getProjectBySlug("voice-agent")?.status).toBe("live");
+    expect(getProjectBySlug("rag-app")?.status).toBe("live");
+    expect(getProjectBySlug("signbridge")?.status).toBe("live");
   });
 
   it("keeps each case study substantive and reachable", () => {

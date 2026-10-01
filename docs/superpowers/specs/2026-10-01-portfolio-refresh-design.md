@@ -47,7 +47,7 @@ Use these public-facing names:
 | Week 1 | Intelligent Invoice Processing |
 | Week 2 | Operations Reporting & Decision Support |
 | Week 3 | ProposalFlow |
-| Week 4 | ContentLedger |
+| Week 4 | ContentStudio |
 | Week 5 | LeadLens |
 | Week 6 | RelayDesk |
 | Voice agent | EchoRun |
@@ -72,7 +72,7 @@ Avoid “Koya,” “program,” and week numbers in primary product titles. Wee
 
 3. **AI Automation**
    - Present Weeks 1–6 as a capability progression without calling it a program.
-   - Order: Intelligent Invoice Processing, Operations Reporting & Decision Support, ProposalFlow, ContentLedger, LeadLens, RelayDesk.
+   - Order: Intelligent Invoice Processing, Operations Reporting & Decision Support, ProposalFlow, ContentStudio, LeadLens, RelayDesk.
    - Show how state, validation, human review, security, and agent autonomy increase across the collection.
 
 4. **More Projects**

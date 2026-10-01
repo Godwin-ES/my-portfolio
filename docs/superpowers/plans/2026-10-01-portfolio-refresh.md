@@ -13,7 +13,7 @@
 ## Global Constraints
 
 - Preserve the existing light theme, teal system accent, typography character, architecture motif, and contact treatment.
-- Public product names are Intelligent Invoice Processing, Operations Reporting & Decision Support, ProposalFlow, ContentLedger, LeadLens, RelayDesk, EchoRun, ChatDocs, and SignBridge.
+- Public product names are Intelligent Invoice Processing, Operations Reporting & Decision Support, ProposalFlow, ContentStudio, LeadLens, RelayDesk, EchoRun, ChatDocs, and SignBridge.
 - Use “AI Automation”; do not present the work as a “program” or use “Koya” in primary public titles.
 - Feature EchoRun, SignBridge, RelayDesk, ChatDocs, and LeadLens in that order.
 - Weeks 1–5 support Loom walkthroughs; RelayDesk uses a “Walkthrough coming soon” state; personal projects have no walkthrough UI.

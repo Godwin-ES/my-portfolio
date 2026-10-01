@@ -16,7 +16,7 @@ it("renders the six AI Automation systems in order without legacy public labels"
   expect(items[1]).toHaveTextContent("Operations Reporting & Decision Support");
   expect(screen.getAllByText("Operations Reporting & Decision Support")).toHaveLength(1);
   expect(items[2]).toHaveTextContent("ProposalFlow");
-  expect(items[3]).toHaveTextContent("ContentLedger");
+  expect(items[3]).toHaveTextContent("ContentStudio");
   expect(items[4]).toHaveTextContent("LeadLens");
   expect(items[5]).toHaveTextContent("RelayDesk");
   expect(screen.queryByText(/AI Automation Program/i)).not.toBeInTheDocument();

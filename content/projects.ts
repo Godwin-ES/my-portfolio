@@ -9,9 +9,10 @@ const details: Record<string, Pick<Project, "title" | "collections" | "status" |
   "voice-agent": {
     title: "EchoRun",
     collections: ["selected", "personal"],
-    status: "complete",
+    status: "live",
     media: { kind: "architecture" },
     links: [
+      { kind: "live", label: "Open live app", url: "https://meet-nine-xi.vercel.app/" },
       { kind: "repository", label: "Agent repository", url: "https://github.com/Godwin-ES/agno_livekit_agent" },
       { kind: "repository", label: "Interface repository", url: "https://github.com/Godwin-ES/meet" },
     ],
@@ -23,9 +24,12 @@ const details: Record<string, Pick<Project, "title" | "collections" | "status" |
   "rag-app": {
     title: "ChatDocs",
     collections: ["selected", "personal"],
-    status: "complete",
+    status: "live",
     media: { kind: "architecture" },
-    links: [{ kind: "repository", label: "Source repository", url: "https://github.com/Godwin-ES/ChatDocs" }],
+    links: [
+      { kind: "live", label: "Open live app", url: "https://rag-app-or7d.onrender.com/" },
+      { kind: "repository", label: "Source repository", url: "https://github.com/Godwin-ES/ChatDocs" },
+    ],
     facts: [{ value: "3", label: "isolated persistence layers" }, { value: "3", label: "supported document formats" }],
     flow: [{ label: "Authenticate" }, { label: "Upload documents" }, { label: "Index per user" }, { label: "Ask questions" }, { label: "Stream grounded answers" }],
     featured: true,
@@ -48,19 +52,25 @@ const details: Record<string, Pick<Project, "title" | "collections" | "status" |
   "proposal-studio": {
     title: "ProposalFlow",
     collections: ["ai-automation"],
-    status: "complete",
+    status: "live",
     media: { kind: "loom", status: "pending-link" },
-    links: [{ kind: "repository", label: "Source repository", url: "https://github.com/Godwin-ES/proposal-app" }],
+    links: [
+      { kind: "live", label: "Open live app", url: "https://proposal-app-one-pi.vercel.app/" },
+      { kind: "repository", label: "Source repository", url: "https://github.com/Godwin-ES/proposal-app" },
+    ],
     facts: [{ value: "Immutable", label: "submitted proposal versions" }, { value: "Independent", label: "approval boundary" }],
     flow: [{ label: "Capture discovery" }, { label: "Generate proposal" }, { label: "Edit and version" }, { label: "Approve" }, { label: "Deliver PDF" }],
     featured: false,
   },
   "content-studio": {
-    title: "ContentLedger",
+    title: "ContentStudio",
     collections: ["ai-automation"],
-    status: "complete",
+    status: "live",
     media: { kind: "loom", status: "pending-link" },
-    links: [{ kind: "repository", label: "Source repository", url: "https://github.com/Godwin-ES/content-app" }],
+    links: [
+      { kind: "live", label: "Open live app", url: "https://content-app-nine-fawn.vercel.app/" },
+      { kind: "repository", label: "Source repository", url: "https://github.com/Godwin-ES/content-app" },
+    ],
     facts: [{ value: "Versioned", label: "sources and content" }, { value: "3", label: "downstream content channels" }],
     flow: [{ label: "Research" }, { label: "Review sources" }, { label: "Plan and draft" }, { label: "Adapt channels" }, { label: "Approve package" }],
     featured: false,
