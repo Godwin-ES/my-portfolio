@@ -65,6 +65,14 @@ describe("portfolio project content", () => {
     });
   });
 
+  it("publishes the supplied weekly walkthroughs and keeps Week 4 pending", () => {
+    expect(getProjectBySlug("invoice-processing")?.media).toEqual({ kind: "loom", status: "available", loomId: "f31cca28a78f42ddacf22540273ae76c", durationLabel: "4:57", poster: "https://cdn.loom.com/sessions/thumbnails/f31cca28a78f42ddacf22540273ae76c-2d96ea7173e1ef4e.gif" });
+    expect(getProjectBySlug("operations-reporting")?.media).toEqual({ kind: "loom", status: "available", loomId: "07c77bb238b24bfa98a2531ad26c1555", durationLabel: "4:57", poster: "https://cdn.loom.com/sessions/thumbnails/07c77bb238b24bfa98a2531ad26c1555-91e73a4f0c4a796a.gif" });
+    expect(getProjectBySlug("proposal-studio")?.media).toEqual({ kind: "loom", status: "available", loomId: "ec14befcc6464963ae2fd567bd26ac46", durationLabel: "4:34", poster: "https://cdn.loom.com/sessions/thumbnails/ec14befcc6464963ae2fd567bd26ac46-333222874213ecbd.gif" });
+    expect(getProjectBySlug("content-studio")?.media).toEqual({ kind: "loom", status: "pending-link" });
+    expect(getProjectBySlug("koya-lead-agent")?.media).toEqual({ kind: "loom", status: "available", loomId: "0782a9f803264877a2f832000ee114bd", durationLabel: "4:44", poster: "https://cdn.loom.com/sessions/thumbnails/0782a9f803264877a2f832000ee114bd-be5ad2285fd76bd8.gif" });
+  });
+
   it("publishes only the confirmed live application URLs", () => {
     expect(getProjectBySlug("voice-agent")?.links).toContainEqual({ kind: "live", label: "Open live app", url: "https://meet-nine-xi.vercel.app/" });
     expect(getProjectBySlug("rag-app")?.links).toContainEqual({ kind: "live", label: "Open live app", url: "https://rag-app-or7d.onrender.com/" });

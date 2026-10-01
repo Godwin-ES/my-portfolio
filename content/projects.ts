@@ -39,7 +39,7 @@ const details: Record<string, Pick<Project, "title" | "collections" | "status" |
     title: "LeadLens",
     collections: ["selected", "ai-automation"],
     status: "live",
-    media: { kind: "loom", status: "pending-link" },
+    media: { kind: "loom", status: "available", loomId: "0782a9f803264877a2f832000ee114bd", durationLabel: "4:44", poster: "https://cdn.loom.com/sessions/thumbnails/0782a9f803264877a2f832000ee114bd-be5ad2285fd76bd8.gif" },
     links: [
       { kind: "live", label: "Open live app", url: "https://koya-lead-agent-five.vercel.app" },
       { kind: "repository", label: "Source repository", url: "https://github.com/Godwin-ES/koya-lead-agent" },
@@ -53,7 +53,7 @@ const details: Record<string, Pick<Project, "title" | "collections" | "status" |
     title: "ProposalFlow",
     collections: ["ai-automation"],
     status: "live",
-    media: { kind: "loom", status: "pending-link" },
+    media: { kind: "loom", status: "available", loomId: "ec14befcc6464963ae2fd567bd26ac46", durationLabel: "4:34", poster: "https://cdn.loom.com/sessions/thumbnails/ec14befcc6464963ae2fd567bd26ac46-333222874213ecbd.gif" },
     links: [
       { kind: "live", label: "Open live app", url: "https://proposal-app-one-pi.vercel.app/" },
       { kind: "repository", label: "Source repository", url: "https://github.com/Godwin-ES/proposal-app" },
@@ -79,7 +79,7 @@ const details: Record<string, Pick<Project, "title" | "collections" | "status" |
     title: "Operations Reporting & Decision Support",
     collections: ["ai-automation"],
     status: "live",
-    media: { kind: "loom", status: "pending-link" },
+    media: { kind: "loom", status: "available", loomId: "07c77bb238b24bfa98a2531ad26c1555", durationLabel: "4:57", poster: "https://cdn.loom.com/sessions/thumbnails/07c77bb238b24bfa98a2531ad26c1555-91e73a4f0c4a796a.gif" },
     links: [
       { kind: "live", label: "Open live dashboard", url: "https://koya-dashboard.streamlit.app/" },
       { kind: "repository", label: "Dashboard repository", url: "https://github.com/Godwin-ES/koya-dashboard" },
@@ -92,7 +92,7 @@ const details: Record<string, Pick<Project, "title" | "collections" | "status" |
     title: "Intelligent Invoice Processing",
     collections: ["ai-automation"],
     status: "limited",
-    media: { kind: "loom", status: "pending-link" },
+    media: { kind: "loom", status: "available", loomId: "f31cca28a78f42ddacf22540273ae76c", durationLabel: "4:57", poster: "https://cdn.loom.com/sessions/thumbnails/f31cca28a78f42ddacf22540273ae76c-2d96ea7173e1ef4e.gif" },
     links: [],
     facts: [{ value: "5", label: "explicit exception paths" }, { value: "Stable", label: "duplicate detection key" }],
     flow: [{ label: "Receive email" }, { label: "Detect invoice" }, { label: "Extract fields" }, { label: "Validate and deduplicate" }, { label: "Register outcome" }],

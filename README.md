@@ -48,7 +48,7 @@ Project case-study records live in `content/projects/*.json`; canonical display 
 - Personal products intentionally use no walkthrough UI.
 - Add live and repository actions to `links`; public URLs must use HTTPS. Never add placeholder deployments or credentials.
 
-Confirmed live applications are currently set for EchoRun, ChatDocs, SignBridge, Operations Reporting & Decision Support, ProposalFlow, ContentStudio, LeadLens, and RelayDesk. Week 1–5 Loom share IDs and approved product screenshots remain pending and render explicit fallbacks without breaking the build.
+Confirmed live applications are currently set for EchoRun, ChatDocs, SignBridge, Operations Reporting & Decision Support, ProposalFlow, ContentStudio, LeadLens, and RelayDesk. Walkthroughs are published for Weeks 1, 2, 3, and 5; Week 4 and approved product screenshots remain pending and render explicit fallbacks without breaking the build.
 
 ## Deployment
 
