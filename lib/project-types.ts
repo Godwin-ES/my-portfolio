@@ -27,6 +27,33 @@ export type EvidenceItem = {
   url?: string;
 };
 
+export type ProjectCollection = "selected" | "personal" | "ai-automation" | "applied-ml";
+
+export type ProjectStatus = "live" | "limited" | "private" | "in-development" | "archived";
+
+export type ProjectMedia =
+  | { kind: "loom"; status: "available"; loomId: string; durationLabel: string; poster?: string }
+  | { kind: "loom"; status: "pending-link"; durationLabel?: string; poster?: string }
+  | { kind: "loom"; status: "coming-soon"; poster?: string }
+  | { kind: "image"; src: string; alt: string }
+  | { kind: "architecture" };
+
+export type ProjectLink = {
+  kind: "live" | "repository";
+  label: string;
+  url: string;
+};
+
+export type ProjectFact = {
+  value: string;
+  label: string;
+};
+
+export type ProjectFlowStep = {
+  label: string;
+  detail?: string;
+};
+
 export type Project = {
   slug: string;
   title: string;
@@ -35,6 +62,12 @@ export type Project = {
   featured: boolean;
   featuredOrder?: number;
   automationOrder?: number;
+  collections: ProjectCollection[];
+  status: ProjectStatus;
+  media: ProjectMedia;
+  links: ProjectLink[];
+  facts: ProjectFact[];
+  flow: ProjectFlowStep[];
   stack: string[];
   githubUrl?: string;
   secondaryGithubUrl?: string;
