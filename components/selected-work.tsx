@@ -8,9 +8,8 @@ import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section-heading";
 import { getFeaturedProjects } from "@/lib/projects";
 
-export async function SelectedWork() {
+export function SelectedWork() {
   const projects = getFeaturedProjects();
-  const media = await Promise.all(projects.map((project, index) => ProjectMedia({ project, priority: index < 2 })));
   return (
     <section id="work" className="section selected-work" aria-labelledby="selected-work-title">
       <div className="container">
@@ -18,7 +17,7 @@ export async function SelectedWork() {
         <div className="selected-projects">
           {projects.map((project, index) => (
             <Reveal as="article" className="selected-project" delayMs={index % 2 === 0 ? 0 : 80} key={project.slug}>
-              <div className="selected-project-media">{media[index]}</div>
+              <div className="selected-project-media"><ProjectMedia project={project} priority={index < 2} /></div>
               <div className="selected-project-copy">
                 <div className="selected-project-kicker"><span>{String(index + 1).padStart(2, "0")}</span><ProjectStatus status={project.status} /></div>
                 <p className="project-category">{project.category}</p>

@@ -3,10 +3,15 @@ import { ProjectVisual } from "@/components/project-visual";
 import { getLoomMeta } from "@/lib/loom";
 import type { Project } from "@/lib/project-types";
 
-export async function ProjectMedia({ project, priority = false, variant = "card" }: { project: Project; priority?: boolean; variant?: "card" | "hero" }) {
+async function AvailableLoom({ project }: { project: Project & { media: Extract<Project["media"], { kind: "loom"; status: "available" }> } }) {
+  const media = project.media;
+  return <LoomFacade loomId={media.loomId} title={`${project.title} walkthrough`} durationLabel={media.durationLabel} meta={await getLoomMeta(media.loomId)} />;
+}
+
+export function ProjectMedia({ project, priority = false, variant = "card" }: { project: Project; priority?: boolean; variant?: "card" | "hero" }) {
   const media = project.media;
   if (media.kind === "loom" && media.status === "available") {
-    return <LoomFacade loomId={media.loomId} title={`${project.title} walkthrough`} durationLabel={media.durationLabel} meta={await getLoomMeta(media.loomId)} />;
+    return <AvailableLoom project={project as Project & { media: Extract<Project["media"], { kind: "loom"; status: "available" }> }} />;
   }
   if (media.kind === "loom") {
     return <div className={`project-media-state project-media-${variant}`}><ProjectVisual project={project} priority={priority} /><div className="project-media-state-label"><span>{media.status === "coming-soon" ? "Walkthrough coming soon" : "Walkthrough link pending"}</span><small>{media.status === "coming-soon" ? "A guided product tour is in production." : "The product story is available in the case study."}</small></div></div>;
