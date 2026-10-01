@@ -54,6 +54,11 @@ export type ProjectFlowStep = {
   detail?: string;
 };
 
+export type ProjectAccessInfo = {
+  notice?: string;
+  credentials?: { email: string; password: string };
+};
+
 export type Project = {
   slug: string;
   title: string;
@@ -68,6 +73,7 @@ export type Project = {
   links: ProjectLink[];
   facts: ProjectFact[];
   flow: ProjectFlowStep[];
+  access?: ProjectAccessInfo;
   stack: string[];
   githubUrl?: string;
   secondaryGithubUrl?: string;
