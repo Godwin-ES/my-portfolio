@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import type { PointerEvent } from "react";
+import { TransitionLink } from "@/components/navigation/route-transition";
 import type { WorkCollection } from "@/lib/work-collections";
 
 function CollectionMotif({ motif }: { motif: WorkCollection["motif"] }) {
@@ -43,9 +43,10 @@ export function CollectionGateway({ collection, projectTitles }: { collection: W
   };
 
   return (
-    <Link
+    <TransitionLink
       className={`collection-gateway collection-gateway-${collection.id}`}
       href={`/work/${collection.id}`}
+      tone={collection.id === "ai-automation" ? "automation" : "engineering"}
       aria-label={`Explore ${collection.title} projects`}
       onPointerMove={handlePointerMove}
       onPointerLeave={resetPointer}
@@ -61,6 +62,6 @@ export function CollectionGateway({ collection, projectTitles }: { collection: W
         {projectTitles.map((title, index) => <li key={title}><span>{String(index + 1).padStart(2, "0")}</span>{title}</li>)}
       </ol>
       <span className="gateway-action">Explore projects <ArrowUpRight aria-hidden="true" size={18} /></span>
-    </Link>
+    </TransitionLink>
   );
 }

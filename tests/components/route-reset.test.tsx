@@ -14,12 +14,14 @@ describe("RouteReset", () => {
   });
 
   it("resets forward pathname changes but preserves hash and history restoration", () => {
+    const focus = vi.spyOn(document.querySelector<HTMLElement>("#main-content")!, "focus");
     const { rerender } = render(<RouteReset />);
     expect(window.scrollTo).not.toHaveBeenCalled();
 
     pathname = "/work/relaydesk";
     rerender(<RouteReset />);
     expect(window.scrollTo).toHaveBeenCalledWith({ top: 0, left: 0, behavior: "instant" });
+    expect(focus).toHaveBeenCalledWith({ preventScroll: true });
 
     vi.mocked(window.scrollTo).mockClear();
     window.history.replaceState({}, "", "/work/relaydesk#architecture");

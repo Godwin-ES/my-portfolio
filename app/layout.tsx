@@ -5,6 +5,7 @@ import "./globals.css";
 import { homeMetadata } from "@/lib/metadata";
 import { MotionProvider } from "@/components/motion/motion-provider";
 import { RouteReset } from "@/components/navigation/route-reset";
+import { RouteTransitionProvider } from "@/components/navigation/route-transition";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,8 +24,10 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
     <html lang="en" data-scroll-behavior="smooth">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <MotionProvider>
-          <RouteReset />
-          {children}
+          <RouteTransitionProvider>
+            <RouteReset />
+            {children}
+          </RouteTransitionProvider>
         </MotionProvider>
       </body>
     </html>

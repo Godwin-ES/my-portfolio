@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import { TransitionLink } from "@/components/navigation/route-transition";
 import { ProjectActions } from "@/components/project-actions";
 import { ProjectFacts } from "@/components/project-facts";
 import { ProjectMedia } from "@/components/project-media";
@@ -28,9 +28,9 @@ export function ProjectTheatreStage({ project }: { project: Project }) {
             {project.stack.slice(0, 4).map((technology) => <span key={technology}>{technology}</span>)}
           </div>
           <ProjectActions links={project.links} compact />
-          <Link className="theatre-case-link" href={`/work/${project.slug}`}>
+          <TransitionLink className="theatre-case-link" href={`/work/${project.slug}`}>
             Read the case study <ArrowUpRight aria-hidden="true" size={17} />
-          </Link>
+          </TransitionLink>
         </div>
       </div>
     </article>

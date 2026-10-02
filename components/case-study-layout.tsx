@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
 import { ArrowLeft } from "lucide-react";
-import Link from "next/link";
 import { ArchitectureDiagram } from "@/components/architecture-diagram";
 import { CaseStudyNavigation, type CaseSectionLink } from "@/components/case-study-navigation";
 import { EvidenceList } from "@/components/evidence-list";
@@ -11,6 +10,7 @@ import { ProjectFlow } from "@/components/project-flow";
 import { ProjectMedia } from "@/components/project-media";
 import { ProjectStatus } from "@/components/project-status";
 import { Reveal } from "@/components/reveal";
+import { TransitionLink } from "@/components/navigation/route-transition";
 import type { Project } from "@/lib/project-types";
 import { getAdjacentProjects, getProjectCollection } from "@/lib/projects";
 
@@ -37,7 +37,7 @@ export async function CaseStudyLayout({ project }: { project: Project }) {
     ? { href: `/work/${collection.id}`, label: collection.title }
     : { href: "/#work", label: "selected work" };
   return <main id="main-content" className="case-study" tabIndex={-1}>
-    <div className="container case-back-row"><Link href={returnPath.href}><ArrowLeft aria-hidden="true" size={16} /> Back to {returnPath.label}</Link></div>
+    <div className="container case-back-row"><TransitionLink href={returnPath.href}><ArrowLeft aria-hidden="true" size={16} /> Back to {returnPath.label}</TransitionLink></div>
     <header className="container case-hero case-theatre-hero">
       <div className="case-proof">{media}</div>
       <div className="case-hero-copy">

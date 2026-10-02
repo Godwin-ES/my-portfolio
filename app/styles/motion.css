@@ -148,3 +148,65 @@ main, .site-header, .site-footer { position: relative; z-index: 1; }
   .reveal[data-reveal="cascade"] > * { opacity: 1 !important; transform: none !important; transition: none !important; }
   ::view-transition-old(root), ::view-transition-new(root) { animation: none !important; }
 }
+
+/* Route continuity ---------------------------------------------------------- */
+.route-transition {
+  --route-accent: #155f6d;
+  position: fixed;
+  z-index: 999;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  visibility: hidden;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(21, 95, 109, .05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(21, 95, 109, .05) 1px, transparent 1px),
+    #f1f3ef;
+  background-size: 48px 48px, 48px 48px, auto;
+  opacity: 0;
+  transform: translateY(100%);
+}
+.route-transition[data-tone="engineering"] { --route-accent: #356f83; }
+.route-transition[data-tone="automation"] { --route-accent: #167267; }
+.route-transition[data-phase="covering"] {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+  transition: transform 180ms var(--ease-cinematic), opacity 120ms ease;
+}
+.route-transition[data-phase="revealing"] {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(-100%);
+  transition: transform 320ms var(--ease-expressive);
+}
+.route-transition > span {
+  position: absolute;
+  width: min(62vw, 760px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--route-accent) 20%, transparent), transparent 68%);
+}
+.route-transition > i {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--route-accent), transparent);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--route-accent) 35%, transparent);
+}
+.route-transition[data-phase="covering"] > i { animation: route-scan 440ms var(--ease-standard) both; }
+.route-transition > b {
+  position: relative;
+  color: var(--route-accent);
+  font: 650 .6rem/1 var(--font-geist-mono), monospace;
+  letter-spacing: .11em;
+}
+
+@keyframes route-scan { from { transform: translateY(-44vh); } to { transform: translateY(44vh); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .route-transition { display: none !important; }
+}

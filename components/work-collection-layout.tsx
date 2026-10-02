@@ -1,6 +1,6 @@
-import Link from "next/link";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { CollectionProjectRow } from "@/components/collection-project-row";
+import { TransitionLink } from "@/components/navigation/route-transition";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import type { Project } from "@/lib/project-types";
@@ -31,7 +31,7 @@ export function WorkCollectionLayout({ collection, projects }: { collection: Wor
       <main id="main-content" className={`collection-page collection-page-${collection.id}`} tabIndex={-1}>
         <header className="collection-hero">
           <div className="container">
-            <Link className="collection-back" href="/#collections"><ArrowLeft aria-hidden="true" size={16} /> All work collections</Link>
+            <TransitionLink className="collection-back" href="/#collections"><ArrowLeft aria-hidden="true" size={16} /> All work collections</TransitionLink>
             <div className="collection-hero-grid">
               <div className="collection-hero-copy">
                 <p className="eyebrow">{collection.eyebrow}</p>
@@ -58,10 +58,10 @@ export function WorkCollectionLayout({ collection, projects }: { collection: Wor
 
         <section className="collection-next">
           <div className="container">
-            <Link href={`/work/${otherCollection.id}`} aria-label={`Also explore ${otherCollection.title}`}>
+            <TransitionLink href={`/work/${otherCollection.id}`} tone={otherCollection.id === "ai-automation" ? "automation" : "engineering"} aria-label={`Also explore ${otherCollection.title}`}>
               <span><small>Also explore</small><strong>{otherCollection.title}</strong></span>
               <ArrowUpRight aria-hidden="true" size={30} />
-            </Link>
+            </TransitionLink>
           </div>
         </section>
       </main>

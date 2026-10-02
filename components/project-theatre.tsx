@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { startTransition, useState, ViewTransition } from "react";
 import { ProjectTheatreStage } from "@/components/project-theatre-stage";
+import { TransitionLink } from "@/components/navigation/route-transition";
 import type { Project } from "@/lib/project-types";
 
 export function ProjectTheatre({ projects }: { projects: Project[] }) {
@@ -36,7 +36,7 @@ export function ProjectTheatre({ projects }: { projects: Project[] }) {
                     <strong>{project.title}</strong>
                     <small>{project.category.split("·")[0].trim()}</small>
                   </button>
-                  <Link href={`/work/${project.slug}`} aria-label={`Open ${project.title} case study`}><ArrowUpRight aria-hidden="true" size={16} /></Link>
+                  <TransitionLink href={`/work/${project.slug}`} aria-label={`Open ${project.title} case study`}><ArrowUpRight aria-hidden="true" size={16} /></TransitionLink>
                 </div>
               );
             })}

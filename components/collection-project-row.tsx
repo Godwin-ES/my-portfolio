@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import { TransitionLink } from "@/components/navigation/route-transition";
 import { ProjectActions } from "@/components/project-actions";
 import { ProjectFacts } from "@/components/project-facts";
 import { ProjectMedia } from "@/components/project-media";
@@ -23,9 +23,9 @@ export function CollectionProjectRow({ project, index }: { project: Project; ind
           {project.stack.slice(0, 4).map((technology) => <span data-testid="collection-stack-tag" key={technology}>{technology}</span>)}
         </div>
         <ProjectActions links={project.links} compact />
-        <Link className="collection-case-link" href={`/work/${project.slug}`}>
+        <TransitionLink className="collection-case-link" href={`/work/${project.slug}`}>
           Explore the case study <ArrowUpRight aria-hidden="true" size={17} />
-        </Link>
+        </TransitionLink>
       </div>
     </article>
   );
