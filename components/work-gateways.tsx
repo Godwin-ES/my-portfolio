@@ -8,7 +8,7 @@ export function WorkGateways() {
       <div className="container">
         <div className="gateway-heading">
           <p className="eyebrow">Two practices</p>
-          <h2 id="work-gateways-title">Different responsibilities.<br />Same systems mindset.</h2>
+          <h2 id="work-gateways-title">Different responsibilities. <span>Same systems mindset.</span></h2>
           <p>AI Engineering turns model capability into a product people can use. AI Automation turns operational inputs into controlled outcomes. Explore the work by the job the system is responsible for.</p>
         </div>
         <div className="work-gateways-grid">
