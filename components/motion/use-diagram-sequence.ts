@@ -18,7 +18,6 @@ export function useDiagramSequence(container: RefObject<HTMLElement | null>, opt
 
     if (reducedMotion || typeof window.matchMedia !== "function") {
       gsap.set([...nodes, ...connectors, ...labels], { clearProps: "all" });
-      root.dataset.motionComplete = "true";
       return;
     }
 
@@ -26,7 +25,7 @@ export function useDiagramSequence(container: RefObject<HTMLElement | null>, opt
       .fromTo(labels, { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: .34, stagger: .045 })
       .fromTo(nodes, { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: .5, stagger: .075 }, "<.06")
       .fromTo(connectors, { autoAlpha: 0, clipPath: "inset(0 100% 0 0)" }, { autoAlpha: 1, clipPath: "inset(0 0% 0 0)", duration: .44, stagger: .045 }, "<.14")
-      .to(root, { "--signal-progress": 1, duration: .58, onComplete: () => { root.dataset.motionComplete = "true"; } }, "<");
+      .to(root, { "--signal-progress": 1, duration: .58 }, "<");
 
     const trigger = ScrollTrigger.create({
       trigger: root,

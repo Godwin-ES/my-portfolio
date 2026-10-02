@@ -210,3 +210,6 @@ main, .site-header, .site-footer { position: relative; z-index: 1; }
 @media (prefers-reduced-motion: reduce) {
   .route-transition { display: none !important; }
 }
+
+/* Small technical labels must retain normal-text contrast on light surfaces. */
+:root { --subtle: #68706b; }

@@ -29,12 +29,23 @@ export function DualSignal({ mode, phase, onSelect }: { mode: Discipline; phase:
 
   useGSAP(() => {
     if (!surfaceRef.current || !ready || reducedMotion) return;
-    const timeline = gsap.timeline({ defaults: { ease: "power3.out" } });
-    timeline
-      .fromTo(".system-node", { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: .46, stagger: .075 })
-      .fromTo(".system-track-live", { scaleX: 0 }, { scaleX: 1, duration: .72 }, "<.08")
-      .fromTo(".system-packet", { xPercent: -40, autoAlpha: 0 }, { xPercent: 440, autoAlpha: 1, duration: 1.05 }, "<");
-  }, { scope: surfaceRef, dependencies: [mode, phase, ready, reducedMotion], revertOnUpdate: true });
+    const media = gsap.matchMedia();
+    media.add({ narrow: "(max-width: 620px)", wide: "(min-width: 621px)" }, (context) => {
+      const narrow = Boolean(context.conditions?.narrow);
+      const track = surfaceRef.current?.querySelector<HTMLElement>(".system-track");
+      const packet = surfaceRef.current?.querySelector<HTMLElement>(".system-packet");
+      const trackLength = (narrow ? track?.clientHeight : track?.clientWidth) ?? 0;
+      const packetSize = narrow ? packet?.offsetHeight ?? 0 : packet?.offsetWidth ?? 0;
+      const packetTravel = Math.max(trackLength - packetSize, 0);
+      const timeline = gsap.timeline({ defaults: { ease: "power3.out" } });
+      timeline
+        .fromTo(".system-node", { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: .46, stagger: .075 })
+        .fromTo(".system-track-live", narrow ? { scaleY: 0 } : { scaleX: 0 }, narrow ? { scaleY: 1, duration: .72 } : { scaleX: 1, duration: .72 }, "<.08")
+        .fromTo(".system-packet", narrow ? { y: 0, autoAlpha: 0 } : { x: 0, autoAlpha: 0 }, narrow ? { y: packetTravel, autoAlpha: 1, duration: 1.05 } : { x: packetTravel, autoAlpha: 1, duration: 1.05 }, "<");
+      return () => timeline.kill();
+    });
+    return () => media.revert();
+  }, { scope: surfaceRef, dependencies: [mode, ready, reducedMotion], revertOnUpdate: true });
 
   const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
     if (!finePointer || reducedMotion) return;
@@ -76,6 +87,8 @@ export function DualSignal({ mode, phase, onSelect }: { mode: Discipline; phase:
             aria-label={`View ${systems[discipline].title} system`}
             aria-pressed={mode === discipline}
             onClick={() => onSelect(discipline)}
+            onFocus={() => { if (phase === "settled") onSelect(discipline); }}
+            onPointerEnter={() => { if (phase === "settled") onSelect(discipline); }}
           >
             <span>0{index + 1}</span>
             <strong>{systems[discipline].shortLabel}</strong>

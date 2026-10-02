@@ -72,11 +72,13 @@ export function useHeroSequence() {
     if (!ready) return;
     if (reducedMotion) {
       cancel();
-      setState({ discipline: "engineering", displayText: LABELS.engineering, phase: "settled" });
       return;
     }
-    play();
-    return cancel;
+    const initialTimer = window.setTimeout(play, 0);
+    return () => {
+      window.clearTimeout(initialTimer);
+      cancel();
+    };
   }, [cancel, play, ready, reducedMotion]);
 
   useEffect(() => {
@@ -106,5 +108,9 @@ export function useHeroSequence() {
     return () => trigger.kill();
   }, [play, ready, reducedMotion]);
 
-  return { ...state, selectDiscipline };
+  const visibleState = reducedMotion
+    ? { discipline: "engineering" as const, displayText: LABELS.engineering, phase: "settled" as const }
+    : state;
+
+  return { ...visibleState, selectDiscipline };
 }
