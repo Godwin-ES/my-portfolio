@@ -10,20 +10,18 @@ import { getFeaturedProjects } from "@/lib/projects";
 
 it("positions AI Automation and AI Engineering as one production practice", async () => {
   render(<><Hero /><ProjectTheatre projects={getFeaturedProjects()} /></>);
-  expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(/AI Automation/i);
-  expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(/AI Engineering/i);
+  expect(screen.getByRole("heading", { level: 1 })).toHaveAccessibleName("AI Automation and AI Engineering. One production mindset.");
+  expect(screen.getByTestId("animated-discipline")).toHaveAttribute("aria-hidden", "true");
   expect(screen.getByRole("link", { name: /explore selected work/i })).toHaveAttribute("href", "#work");
 
-  const automationLane = screen.getByRole("button", { name: /AI Automation lane/i });
-  const engineeringLane = screen.getByRole("button", { name: /AI Engineering lane/i });
-  expect(automationLane).toHaveAttribute("aria-pressed", "false");
-  expect(engineeringLane).toHaveAttribute("aria-pressed", "false");
-  fireEvent.focus(automationLane);
+  const automationLane = screen.getByRole("button", { name: /View AI Automation system/i });
+  const engineeringLane = screen.getByRole("button", { name: /View AI Engineering system/i });
   expect(automationLane).toHaveAttribute("aria-pressed", "true");
-  expect(screen.getByText(/governed workflows/i)).toBeInTheDocument();
-  fireEvent.focus(engineeringLane);
+  expect(engineeringLane).toHaveAttribute("aria-pressed", "false");
+  expect(screen.queryByText(/FLOW \/ A|BUILD \/ B/i)).not.toBeInTheDocument();
+  fireEvent.click(engineeringLane);
   expect(engineeringLane).toHaveAttribute("aria-pressed", "true");
-  expect(screen.getByText(/product architecture/i)).toBeInTheDocument();
+  expect(screen.getByText(/Product architecture connects/i)).toBeInTheDocument();
   expect(screen.getByText("Production system")).toBeInTheDocument();
   expect(screen.queryByText(/\d+%|\d+\+/)).not.toBeInTheDocument();
 

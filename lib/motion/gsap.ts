@@ -2,8 +2,10 @@ import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger, useGSAP);
+gsap.registerPlugin(useGSAP);
+
+if (typeof window !== "undefined" && typeof window.matchMedia === "function") {
+  gsap.registerPlugin(ScrollTrigger);
 }
 
 export { gsap, ScrollTrigger, useGSAP };

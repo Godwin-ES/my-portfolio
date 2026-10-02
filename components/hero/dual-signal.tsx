@@ -1,106 +1,113 @@
 "use client";
 
-import { useRef, useState, type PointerEvent } from "react";
+import { useRef, type PointerEvent } from "react";
+import { useMotionPreferences } from "@/components/motion/motion-provider";
+import { gsap, useGSAP } from "@/lib/motion/gsap";
+import type { Discipline, HeroPhase } from "@/lib/motion/hero-sequence";
 
-type Lane = "automation" | "engineering";
-
-const lanes = {
+const systems = {
   automation: {
+    shortLabel: "Automation",
     title: "AI Automation",
-    code: "FLOW / A",
-    caption: "Governed workflows move real events through validation, orchestration, and human approval.",
-    steps: ["Event", "Validate", "Orchestrate", "Approve"],
+    caption: "Governed workflows move real events through guardrails, orchestration, and human approval.",
+    stages: ["Intake", "Guardrails", "Orchestrate", "Approval", "Outcome"],
+    meta: ["event", "rules", "tools", "human", "evidence"],
   },
   engineering: {
+    shortLabel: "Engineering",
     title: "AI Engineering",
-    code: "BUILD / B",
-    caption: "Product architecture connects data, application logic, intelligence, and the interface people use.",
-    steps: ["Data", "Logic", "Intelligence", "Interface"],
+    caption: "Product architecture connects the interface, application logic, intelligence, durable state, and outcome.",
+    stages: ["Interface", "Application", "Intelligence", "State", "Product"],
+    meta: ["human", "logic", "models", "memory", "system"],
   },
 } as const;
 
-export function DualSignal() {
-  const [activeLane, setActiveLane] = useState<Lane | null>(null);
+export function DualSignal({ mode, phase, onSelect }: { mode: Discipline; phase: HeroPhase; onSelect(mode: Discipline): void }) {
   const surfaceRef = useRef<HTMLDivElement>(null);
+  const { finePointer, ready, reducedMotion } = useMotionPreferences();
+  const system = systems[mode];
+
+  useGSAP(() => {
+    if (!surfaceRef.current || !ready || reducedMotion) return;
+    const timeline = gsap.timeline({ defaults: { ease: "power3.out" } });
+    timeline
+      .fromTo(".system-node", { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: .46, stagger: .075 })
+      .fromTo(".system-track-live", { scaleX: 0 }, { scaleX: 1, duration: .72 }, "<.08")
+      .fromTo(".system-packet", { xPercent: -40, autoAlpha: 0 }, { xPercent: 440, autoAlpha: 1, duration: 1.05 }, "<");
+  }, { scope: surfaceRef, dependencies: [mode, phase, ready, reducedMotion], revertOnUpdate: true });
 
   const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
+    if (!finePointer || reducedMotion) return;
     const bounds = event.currentTarget.getBoundingClientRect();
     const x = (event.clientX - bounds.left) / bounds.width - 0.5;
     const y = (event.clientY - bounds.top) / bounds.height - 0.5;
-    event.currentTarget.style.setProperty("--signal-x", `${x * 4}deg`);
-    event.currentTarget.style.setProperty("--signal-y", `${y * -4}deg`);
+    event.currentTarget.style.setProperty("--signal-x", `${x * 3.2}deg`);
+    event.currentTarget.style.setProperty("--signal-y", `${y * -3.2}deg`);
     event.currentTarget.style.setProperty("--glow-x", `${(x + 0.5) * 100}%`);
     event.currentTarget.style.setProperty("--glow-y", `${(y + 0.5) * 100}%`);
   };
 
-  const clearPointerState = () => {
-    const surface = surfaceRef.current;
-    if (!surface) return;
-    surface.style.setProperty("--signal-x", "0deg");
-    surface.style.setProperty("--signal-y", "0deg");
-    if (!surface.contains(document.activeElement)) setActiveLane(null);
+  const resetPointer = () => {
+    surfaceRef.current?.style.setProperty("--signal-x", "0deg");
+    surfaceRef.current?.style.setProperty("--signal-y", "0deg");
   };
-
-  const caption = activeLane
-    ? lanes[activeLane].caption
-    : "Two disciplines converge on one observable, usable production system.";
 
   return (
     <div
       ref={surfaceRef}
       className="dual-signal"
-      data-active={activeLane ?? "none"}
+      data-mode={mode}
+      data-phase={phase}
       onPointerMove={handlePointerMove}
-      onPointerLeave={clearPointerState}
-      aria-label="AI Automation and AI Engineering converge into a production system"
+      onPointerLeave={resetPointer}
+      aria-label="Interactive model of AI Automation and AI Engineering"
     >
       <div className="signal-grid" aria-hidden="true" />
       <div className="signal-topline" aria-hidden="true">
-        <span>DUAL SIGNAL / SYSTEM MAP</span>
-        <span className="signal-online"><i /> READY</span>
+        <span>INTELLIGENT SYSTEM / LIVE MODEL</span>
+        <span className="signal-online"><i /> SIGNAL ACTIVE</span>
       </div>
 
-      <div className="signal-lanes">
-        {(Object.keys(lanes) as Lane[]).map((lane) => {
-          const content = lanes[lane];
-          return (
-            <button
-              key={lane}
-              type="button"
-              className={`signal-lane signal-lane-${lane}`}
-              aria-label={`${content.title} lane`}
-              aria-pressed={activeLane === lane}
-              onFocus={() => setActiveLane(lane)}
-              onBlur={(event) => {
-                if (!surfaceRef.current?.contains(event.relatedTarget)) setActiveLane(null);
-              }}
-              onPointerEnter={() => setActiveLane(lane)}
-              onClick={() => setActiveLane(lane)}
-            >
-              <span className="signal-lane-heading">
-                <small>{content.code}</small>
-                <strong>{content.title}</strong>
-              </span>
-              <span className="signal-path" aria-hidden="true">
-                {content.steps.map((step, index) => (
-                  <span className="signal-step" key={step}>
-                    <i>{String(index + 1).padStart(2, "0")}</i>
-                    <b>{step}</b>
-                  </span>
-                ))}
-              </span>
-            </button>
-          );
-        })}
+      <div className="system-mode-switch" aria-label="Choose a system view">
+        {(Object.keys(systems) as Discipline[]).map((discipline, index) => (
+          <button
+            type="button"
+            key={discipline}
+            aria-label={`View ${systems[discipline].title} system`}
+            aria-pressed={mode === discipline}
+            onClick={() => onSelect(discipline)}
+          >
+            <span>0{index + 1}</span>
+            <strong>{systems[discipline].shortLabel}</strong>
+          </button>
+        ))}
       </div>
 
-      <div className="signal-convergence" aria-hidden="true"><i /><i /></div>
-      <div className="signal-outcome">
-        <span>SHARED OUTCOME</span>
+      <div className="system-stage" aria-hidden="true">
+        <div className="system-stage-heading">
+          <span>{mode === "automation" ? "ORCHESTRATED EXECUTION" : "PRODUCT ARCHITECTURE"}</span>
+          <strong>{system.title}</strong>
+        </div>
+        <div className="system-track"><i /><i className="system-track-live" /><b className="system-packet" /></div>
+        <div className="system-nodes">
+          {system.stages.map((stage, index) => (
+            <div className="system-node" key={stage}>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <strong>{stage}</strong>
+              <small>{system.meta[index]}</small>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="signal-resolution" aria-hidden="true">
+        <span><i /> governed flow</span>
+        <b />
         <strong>Production system</strong>
-        <small>Observable · usable · resilient</small>
+        <b />
+        <span><i /> engineered product</span>
       </div>
-      <p className="signal-caption" aria-live="polite">{caption}</p>
+      <p className="signal-caption" aria-live="polite">{system.caption}</p>
     </div>
   );
 }
