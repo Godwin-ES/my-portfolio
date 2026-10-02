@@ -83,6 +83,8 @@ export type Project = {
   heroAlt?: string;
   problem: string;
   system: string;
+  role: string;
+  constraints: string;
   architecture: {
     nodes: ArchitectureNode[];
     edges: ArchitectureEdge[];

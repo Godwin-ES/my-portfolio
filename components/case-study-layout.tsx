@@ -55,6 +55,10 @@ export async function CaseStudyLayout({ project }: { project: Project }) {
             <article><span>The challenge</span><p>{project.problem}</p></article>
             <article><span>The approach</span><p>{project.system}</p></article>
           </div>
+          <div className="case-snapshot-context">
+            <div><span>My role</span><p>{project.role}</p></div>
+            <div><span>Key constraints</span><p>{project.constraints}</p></div>
+          </div>
           <ProjectFacts facts={project.facts} />
           {project.access ? <ProjectAccess {...project.access} /> : null}
         </div>

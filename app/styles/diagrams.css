@@ -1,4 +1,23 @@
 /* Curated architecture previews ------------------------------------------------ */
+.mobile-menu-button {
+  width: 44px;
+  height: 44px;
+}
+
+.theatre-option {
+  grid-template-columns: minmax(0, 1fr) 44px;
+}
+
+.theatre-option > a {
+  width: 44px;
+  min-width: 44px;
+  height: 44px;
+}
+
+.project-actions-compact .button {
+  min-height: 44px;
+}
+
 .architecture-fallback {
   isolation: isolate;
 }

@@ -11,6 +11,8 @@ it("renders a proof-first seven-part technical story", async () => {
   expect(document.querySelector(".case-proof")?.compareDocumentPosition(document.querySelector(".case-hero-copy")!)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
   expect(document.querySelector(".case-snapshot")?.textContent).toContain("The challenge");
   expect(document.querySelector(".case-snapshot")?.textContent).toContain("The approach");
+  expect(document.querySelector(".case-snapshot")?.textContent).toContain("My role");
+  expect(document.querySelector(".case-snapshot")?.textContent).toContain("Key constraints");
 });
 
 it("omits unavailable live actions", async () => {

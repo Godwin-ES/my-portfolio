@@ -10,7 +10,7 @@ export function RouteReset() {
 
   useEffect(() => {
     const markHistoryNavigation = () => {
-      isHistoryNavigation.current = true;
+      isHistoryNavigation.current = window.location.pathname !== previousPathname.current;
     };
 
     window.addEventListener("popstate", markHistoryNavigation);

@@ -26,10 +26,22 @@ describe("RouteReset", () => {
     rerender(<RouteReset />);
     expect(window.scrollTo).not.toHaveBeenCalled();
 
-    window.dispatchEvent(new PopStateEvent("popstate"));
     pathname = "/";
     window.history.replaceState({}, "", "/");
+    window.dispatchEvent(new PopStateEvent("popstate"));
     rerender(<RouteReset />);
     expect(window.scrollTo).not.toHaveBeenCalled();
+  });
+
+  it("does not let same-path hash history poison the next route change", () => {
+    const { rerender } = render(<RouteReset />);
+    window.history.replaceState({}, "", "/#work");
+    window.dispatchEvent(new PopStateEvent("popstate"));
+
+    pathname = "/work/relaydesk";
+    window.history.replaceState({}, "", "/work/relaydesk");
+    rerender(<RouteReset />);
+
+    expect(window.scrollTo).toHaveBeenCalledWith({ top: 0, left: 0, behavior: "instant" });
   });
 });
