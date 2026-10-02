@@ -215,6 +215,14 @@
 }
 
 @media (max-width: 600px) {
+  .case-proof > .architecture-fallback,
+  .theatre-media > .architecture-fallback,
+  .collection-project-media > .architecture-fallback,
+  .project-card .architecture-fallback {
+    height: 450px !important;
+    min-height: 450px !important;
+  }
+
   .visual-preview-grid {
     min-height: 0 !important;
     height: auto;

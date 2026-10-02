@@ -15,10 +15,10 @@ import type { Project } from "@/lib/project-types";
 import { getAdjacentProjects, getProjectCollection } from "@/lib/projects";
 
 const sections: CaseSectionLink[] = [
-  { id: "overview", label: "Overview" }, { id: "flow", label: "Flow" },
-  { id: "architecture", label: "Architecture" }, { id: "decisions", label: "Decisions" },
-  { id: "reliability", label: "Reliability" }, { id: "result", label: "Result" },
-  { id: "evidence", label: "Evidence" },
+  { id: "overview", label: "Snapshot" }, { id: "flow", label: "Flow" },
+  { id: "architecture", label: "System" }, { id: "decisions", label: "Decisions" },
+  { id: "reliability", label: "Reliability" }, { id: "result", label: "Outcome" },
+  { id: "evidence", label: "Proof" },
 ];
 
 function DetailGrid({ items }: { items: { title: string; detail: string }[] }) {
@@ -38,30 +38,34 @@ export async function CaseStudyLayout({ project }: { project: Project }) {
     : { href: "/#work", label: "selected work" };
   return <main id="main-content" className="case-study" tabIndex={-1}>
     <div className="container case-back-row"><Link href={returnPath.href}><ArrowLeft aria-hidden="true" size={16} /> Back to {returnPath.label}</Link></div>
-    <header className="container case-hero">
+    <header className="container case-hero case-theatre-hero">
+      <div className="case-proof">{media}</div>
       <div className="case-hero-copy">
         <div className="case-hero-meta"><p className="eyebrow">{project.category}</p><ProjectStatus status={project.status} /></div>
         <h1>{project.title}</h1><p>{project.summary}</p>
         <ProjectActions links={project.links} />
         <div className="case-stack">{project.stack.map((item) => <span key={item}>{item}</span>)}</div>
       </div>
-      <div className="case-proof">{media}</div>
     </header>
-    <CaseStudyNavigation sections={sections} previous={adjacent.previous} next={adjacent.next} />
+    <CaseStudyNavigation sections={sections} collectionTitle={collection?.title} />
     <div className="case-content container">
-      <section id="overview" className="case-section case-overview">
-        <div><p className="eyebrow">01 · Overview</p><h2>What it solves</h2><p className="case-prose">{project.problem}</p></div>
-        <div><p className="eyebrow">The product</p><h2>How it works</h2><p className="case-prose">{project.system}</p></div>
-        <ProjectFacts facts={project.facts} />
-        {project.access ? <ProjectAccess {...project.access} /> : null}
-      </section>
-      <CaseSection id="flow" eyebrow="02" title="Product flow" wide><ProjectFlow steps={project.flow} /></CaseSection>
-      <CaseSection id="architecture" eyebrow="03" title="Architecture" wide><ArchitectureDiagram architecture={project.architecture} /></CaseSection>
+      <CaseSection id="overview" eyebrow="01 · Context" title="Project snapshot" wide>
+        <div className="case-snapshot">
+          <div className="case-snapshot-story">
+            <article><span>The challenge</span><p>{project.problem}</p></article>
+            <article><span>The approach</span><p>{project.system}</p></article>
+          </div>
+          <ProjectFacts facts={project.facts} />
+          {project.access ? <ProjectAccess {...project.access} /> : null}
+        </div>
+      </CaseSection>
+      <CaseSection id="flow" eyebrow="02 · Journey" title="Experience flow" wide><ProjectFlow steps={project.flow} /></CaseSection>
+      <CaseSection id="architecture" eyebrow="03 · System" title="System architecture" wide><ArchitectureDiagram architecture={project.architecture} /></CaseSection>
       <CaseSection id="decisions" eyebrow="04" title="Engineering decisions" wide><DetailGrid items={project.engineeringDecisions} /></CaseSection>
-      <CaseSection id="reliability" eyebrow="05" title="Reliability & edge cases" wide><DetailGrid items={project.reliability} /></CaseSection>
-      <CaseSection id="result" eyebrow="06" title="Result"><p className="case-result">{project.result}</p></CaseSection>
-      <CaseSection id="evidence" eyebrow="07" title="Evidence" wide><EvidenceList items={project.evidence} /></CaseSection>
-      <CaseStudyNavigation sections={[]} previous={adjacent.previous} next={adjacent.next} />
+      <CaseSection id="reliability" eyebrow="05 · Trust" title="Reliability boundaries" wide><DetailGrid items={project.reliability} /></CaseSection>
+      <CaseSection id="result" eyebrow="06 · Impact" title="Outcome"><p className="case-result">{project.result}</p></CaseSection>
+      <CaseSection id="evidence" eyebrow="07 · Verify" title="Proof & access" wide><EvidenceList items={project.evidence} /></CaseSection>
+      <CaseStudyNavigation sections={[]} previous={adjacent.previous} next={adjacent.next} collectionTitle={collection?.title} />
     </div>
   </main>;
 }

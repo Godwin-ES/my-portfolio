@@ -10,6 +10,8 @@ const iconMap = {
   document: FileCheck2,
 };
 
+const kindLabel = { github: "Source code", demo: "Product proof", screenshot: "Interface", test: "Quality", document: "Documentation" };
+
 export function EvidenceList({ items }: { items: EvidenceItem[] }) {
   return (
     <div className="evidence-list">
@@ -18,7 +20,7 @@ export function EvidenceList({ items }: { items: EvidenceItem[] }) {
         const content = (
           <>
             <span className="evidence-icon"><Icon aria-hidden="true" size={18} strokeWidth={1.7} /></span>
-            <span className="evidence-copy"><strong>{item.label}</strong><small>{item.description}</small></span>
+            <span className="evidence-copy"><span className="evidence-kind">{kindLabel[item.kind]}</span><strong>{item.label}</strong><small>{item.description}</small></span>
           </>
         );
         return item.url ? (
