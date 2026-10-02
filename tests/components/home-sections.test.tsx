@@ -8,10 +8,13 @@ import { EngineeringPractice } from "@/components/engineering-practice";
 import { WorkGateways } from "@/components/work-gateways";
 import { getFeaturedProjects } from "@/lib/projects";
 
-it("positions AI Automation and AI Engineering as one production practice", async () => {
+it("positions AI Engineering and AI Automation as software built to operate", async () => {
   render(<><Hero /><ProjectTheatre projects={getFeaturedProjects()} /></>);
-  expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(/AI Automation/i);
-  expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(/AI Engineering/i);
+  const hero = screen.getByRole("heading", { level: 1 });
+  expect(hero).toHaveTextContent(/AI Engineering/i);
+  expect(hero).toHaveTextContent(/AI Automation/i);
+  expect(hero).toHaveTextContent(/Built to operate/i);
+  expect(screen.getByText(/software around AI/i)).toBeInTheDocument();
   expect(screen.getByRole("link", { name: /explore selected work/i })).toHaveAttribute("href", "#work");
 
   const automationLane = screen.getByRole("button", { name: /AI Automation lane/i });
@@ -37,12 +40,15 @@ it("routes the two bodies of work through equal collection gateways", () => {
   expect(screen.getByRole("link", { name: /Explore AI Engineering projects/i })).toHaveAttribute("href", "/work/ai-engineering");
   expect(screen.getByText("6 projects")).toBeInTheDocument();
   expect(screen.getByText("3 projects")).toBeInTheDocument();
+  expect(screen.getByRole("heading", { name: /Different responsibilities\. Same systems mindset\./i })).toBeInTheDocument();
   expect(screen.queryByText(/AI Automation Program/i)).not.toBeInTheDocument();
   expect(screen.queryByText(/Koya/i)).not.toBeInTheDocument();
 });
 
 it("explains engineering judgment through four concrete principles", () => {
   render(<EngineeringPractice />);
+  expect(document.getElementById("practice")).toBeInTheDocument();
+  expect(screen.getByRole("heading", { name: "The model is never the whole system." })).toBeInTheDocument();
   for (const principle of [
     "Make AI boundaries explicit.",
     "Preserve state and evidence.",
@@ -53,9 +59,12 @@ it("explains engineering judgment through four concrete principles", () => {
   expect(screen.queryByText(/toolkit/i)).not.toBeInTheDocument();
 });
 
-it("keeps experience, profile, and contact concise", () => {
+it("keeps experience, profile, and contact concise and specific", () => {
   render(<><ExperienceTimeline /><AboutSection /><ContactSection /></>);
   expect(screen.getAllByTestId("experience-item")).toHaveLength(4);
+  expect(screen.getByRole("heading", { name: "Signals, states, constraints, failure paths." })).toBeInTheDocument();
+  expect(screen.getByRole("heading", { name: /behave like software, not a demo/i })).toBeInTheDocument();
+  expect(screen.getByText(/system quality/i)).toBeInTheDocument();
   expect(screen.getByText(/B\.Eng\. Electrical & Electronics Engineering/)).toHaveTextContent("4.80/5.00");
   expect(screen.getByRole("link", { name: /email me/i })).toHaveAttribute("href", "mailto:ekanemgodwins@gmail.com");
   expect(screen.queryByRole("button", { name: "All" })).not.toBeInTheDocument();
