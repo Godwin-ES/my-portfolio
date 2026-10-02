@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { AutomationProgression } from "@/components/automation-progression";
 import { ExperienceTimeline } from "@/components/experience-timeline";
 import { ToolkitGrid } from "@/components/toolkit-grid";
@@ -23,10 +23,25 @@ it("renders the six AI Automation systems in order without legacy public labels"
   expect(screen.queryByText(/Koya/i)).not.toBeInTheDocument();
 });
 
-it("leads with a clear value proposition and the four flagship products", async () => {
+it("positions AI Automation and AI Engineering as one production practice", async () => {
   render(<><Hero />{await SelectedWork()}</>);
-  expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(/AI products/i);
+  expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(/AI Automation/i);
+  expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(/AI Engineering/i);
   expect(screen.getByRole("link", { name: /explore selected work/i })).toHaveAttribute("href", "#work");
+
+  const automationLane = screen.getByRole("button", { name: /AI Automation lane/i });
+  const engineeringLane = screen.getByRole("button", { name: /AI Engineering lane/i });
+  expect(automationLane).toHaveAttribute("aria-pressed", "false");
+  expect(engineeringLane).toHaveAttribute("aria-pressed", "false");
+  fireEvent.focus(automationLane);
+  expect(automationLane).toHaveAttribute("aria-pressed", "true");
+  expect(screen.getByText(/governed workflows/i)).toBeInTheDocument();
+  fireEvent.focus(engineeringLane);
+  expect(engineeringLane).toHaveAttribute("aria-pressed", "true");
+  expect(screen.getByText(/product architecture/i)).toBeInTheDocument();
+  expect(screen.getByText("Production system")).toBeInTheDocument();
+  expect(screen.queryByText(/\d+%|\d+\+/)).not.toBeInTheDocument();
+
   for (const title of ["RelayDesk", "EchoRun", "LeadLens", "ChatDocs"]) expect(screen.getByRole("heading", { name: title })).toBeInTheDocument();
   expect(screen.queryByRole("heading", { name: "SignBridge" })).not.toBeInTheDocument();
 });
