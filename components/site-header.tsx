@@ -32,7 +32,7 @@ export function SiteHeader({ homePrefix = "" }: { homePrefix?: string }) {
   return (
     <header className="site-header">
       <div className="container header-inner">
-        <a className="brand" href={homePrefix || "#top"} aria-label="Godwin Ekanem home">
+        <a className="brand" href={homePrefix ? `${homePrefix}#top` : "#top"} aria-label="Godwin Ekanem home">
           <span className="brand-mark">GE</span>
           <span>{site.name}</span>
         </a>

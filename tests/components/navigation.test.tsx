@@ -26,6 +26,11 @@ it("renders the primary navigation and résumé PDF action", () => {
   );
 });
 
+it("targets a stable main landmark from the site brand", () => {
+  render(<SiteHeader homePrefix="/" />);
+  expect(screen.getByRole("link", { name: /godwin ekanem home/i })).toHaveAttribute("href", "/#top");
+});
+
 it("exposes an accessible mobile menu toggle", () => {
   render(<SiteHeader />);
   const button = screen.getByRole("button", { name: /open navigation/i });

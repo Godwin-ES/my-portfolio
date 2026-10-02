@@ -36,7 +36,7 @@ export async function CaseStudyLayout({ project }: { project: Project }) {
   const returnPath = collection
     ? { href: `/work/${collection.id}`, label: collection.title }
     : { href: "/#work", label: "selected work" };
-  return <main className="case-study">
+  return <main id="main-content" className="case-study" tabIndex={-1}>
     <div className="container case-back-row"><Link href={returnPath.href}><ArrowLeft aria-hidden="true" size={16} /> Back to {returnPath.label}</Link></div>
     <header className="container case-hero">
       <div className="case-hero-copy">
