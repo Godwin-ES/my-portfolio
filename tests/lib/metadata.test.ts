@@ -7,8 +7,8 @@ import { getWorkCollection } from "@/lib/work-collections";
 
 describe("portfolio metadata",()=>{
   it("uses product-focused home metadata and a safe local URL default",()=>{
-    expect(HOME_TITLE).toBe("Godwin Ekanem — Software Engineer building AI products");
-    expect(HOME_DESCRIPTION).toMatch(/voice AI.*automation/i);
+    expect(HOME_TITLE).toBe("Godwin Ekanem — AI Automation & AI Engineering");
+    expect(HOME_DESCRIPTION).toMatch(/AI automation.*AI engineering/i);
     if(!process.env.NEXT_PUBLIC_SITE_URL&&!process.env.VERCEL_PROJECT_PRODUCTION_URL&&!process.env.VERCEL_URL)expect(SITE_URL.toString()).toBe("http://localhost:3000/");
   });
 

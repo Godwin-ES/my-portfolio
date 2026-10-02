@@ -24,7 +24,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
   return (
     <>
-      <SiteHeader homePrefix="/" />
+      <SiteHeader homePrefix="/" activeItem="#work" />
       <CaseStudyLayout project={project} />
       <SiteFooter />
     </>

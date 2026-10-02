@@ -27,7 +27,7 @@ export function WorkCollectionLayout({ collection, projects }: { collection: Wor
 
   return (
     <>
-      <SiteHeader homePrefix="/" />
+      <SiteHeader homePrefix="/" activeItem="#work" />
       <main id="main-content" className={`collection-page collection-page-${collection.id}`} tabIndex={-1}>
         <header className="collection-hero">
           <div className="container">

@@ -27,8 +27,9 @@ it("renders the primary navigation and résumé PDF action", () => {
 });
 
 it("targets a stable main landmark from the site brand", () => {
-  render(<SiteHeader homePrefix="/" />);
+  render(<SiteHeader homePrefix="/" activeItem="#work" />);
   expect(screen.getByRole("link", { name: /godwin ekanem home/i })).toHaveAttribute("href", "/#top");
+  expect(screen.getAllByRole("link", { name: "Work" })[0]).toHaveAttribute("aria-current", "page");
 });
 
 it("exposes an accessible mobile menu toggle", () => {
@@ -38,6 +39,7 @@ it("exposes an accessible mobile menu toggle", () => {
   fireEvent.click(button);
   expect(button).toHaveAttribute("aria-expanded", "true");
   expect(document.body.style.overflow).toBe("hidden");
+  expect(screen.getByRole("navigation", { name: /mobile/i })).not.toHaveAttribute("inert");
   fireEvent.keyDown(document, { key: "Escape" });
   expect(button).toHaveAttribute("aria-expanded", "false");
   expect(document.body.style.overflow).toBe("");
