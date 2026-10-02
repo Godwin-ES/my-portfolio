@@ -24,9 +24,9 @@ export function EvidenceList({ items }: { items: EvidenceItem[] }) {
           </>
         );
         return item.url ? (
-          <ExternalLink className="evidence-item is-link" href={item.url} key={`${item.label}-${index}`}>{content}</ExternalLink>
+          <ExternalLink className="evidence-item is-link" href={item.url} key={`${item.label}-${index}`} data-evidence-index={index}>{content}</ExternalLink>
         ) : (
-          <div className="evidence-item" key={`${item.label}-${index}`}>{content}</div>
+          <div className="evidence-item" key={`${item.label}-${index}`} data-evidence-index={index}>{content}</div>
         );
       })}
     </div>

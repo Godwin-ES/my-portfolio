@@ -1,10 +1,18 @@
 "use client";
 
-import { type ReactNode, useCallback, useRef } from "react";
+import { type HTMLAttributes, type ReactNode, useCallback, useRef } from "react";
 
 export type RevealVariant = "rise" | "editorial" | "lateral" | "cascade" | "resolve";
 
-export function Reveal({ as = "div", id, className, delayMs = 0, variant = "rise", once = true, children }: { as?: "div" | "section" | "article"; id?: string; className?: string; delayMs?: number; variant?: RevealVariant; once?: boolean; children: ReactNode }) {
+type RevealProps = Omit<HTMLAttributes<HTMLElement>, "children"> & {
+  as?: "div" | "section" | "article";
+  delayMs?: number;
+  variant?: RevealVariant;
+  once?: boolean;
+  children: ReactNode;
+};
+
+export function Reveal({ as = "div", id, className, delayMs = 0, variant = "rise", once = true, children, ...rest }: RevealProps) {
   const observerRef = useRef<IntersectionObserver | null>(null);
   const setNode = useCallback((node: HTMLElement | null) => {
     observerRef.current?.disconnect();
@@ -24,5 +32,5 @@ export function Reveal({ as = "div", id, className, delayMs = 0, variant = "rise
   }, [once]);
 
   const Tag = as;
-  return <Tag ref={setNode} id={id} className={["reveal", className].filter(Boolean).join(" ")} data-reveal={variant} data-enhanced="false" data-visible="true" style={{ "--reveal-delay": `${delayMs}ms` } as React.CSSProperties}>{children}</Tag>;
+  return <Tag {...rest} ref={setNode} id={id} className={["reveal", className].filter(Boolean).join(" ")} data-reveal={variant} data-enhanced="false" data-visible="true" style={{ ...rest.style, "--reveal-delay": `${delayMs}ms` } as React.CSSProperties}>{children}</Tag>;
 }

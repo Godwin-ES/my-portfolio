@@ -1,6 +1,7 @@
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { CollectionProjectRow } from "@/components/collection-project-row";
 import { TransitionLink } from "@/components/navigation/route-transition";
+import { Reveal } from "@/components/reveal";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import type { Project } from "@/lib/project-types";
@@ -33,37 +34,39 @@ export function WorkCollectionLayout({ collection, projects }: { collection: Wor
           <div className="container">
             <TransitionLink className="collection-back" href="/#collections"><ArrowLeft aria-hidden="true" size={16} /> All work collections</TransitionLink>
             <div className="collection-hero-grid">
-              <div className="collection-hero-copy">
+              <Reveal variant="editorial" className="collection-hero-copy">
                 <p className="eyebrow">{collection.eyebrow}</p>
                 <h1>{collection.title}</h1>
                 <p>{collection.description}</p>
                 <div className="collection-hero-meta"><span>{projects.length} projects</span><i /><span>Architecture, proof & decisions</span></div>
-              </div>
-              <CollectionHeroMotif collection={collection} />
+              </Reveal>
+              <Reveal variant="resolve" className="collection-hero-motif-wrap" delayMs={100}>
+                <CollectionHeroMotif collection={collection} />
+              </Reveal>
             </div>
           </div>
         </header>
 
         <section className="collection-projects" aria-label={`${collection.title} projects`}>
           <div className="container">
-            <div className="collection-projects-intro">
+            <Reveal variant="lateral" className="collection-projects-intro">
               <p className="eyebrow">Project sequence</p>
               <p>{collection.id === "ai-automation" ? "A progression from deterministic workflow control to agentic, real-time support." : "Three products built across voice, documents, computer vision, backend architecture, and accessible interfaces."}</p>
-            </div>
+            </Reveal>
             <div className="collection-project-list">
               {projects.map((project, index) => <CollectionProjectRow key={project.slug} project={project} index={index} />)}
             </div>
           </div>
         </section>
 
-        <section className="collection-next">
+        <Reveal as="section" variant="resolve" className="collection-next">
           <div className="container">
             <TransitionLink href={`/work/${otherCollection.id}`} tone={otherCollection.id === "ai-automation" ? "automation" : "engineering"} aria-label={`Also explore ${otherCollection.title}`}>
               <span><small>Also explore</small><strong>{otherCollection.title}</strong></span>
               <ArrowUpRight aria-hidden="true" size={30} />
             </TransitionLink>
           </div>
-        </section>
+        </Reveal>
       </main>
       <SiteFooter />
     </>

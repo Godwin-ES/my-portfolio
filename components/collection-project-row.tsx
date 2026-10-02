@@ -4,11 +4,12 @@ import { ProjectActions } from "@/components/project-actions";
 import { ProjectFacts } from "@/components/project-facts";
 import { ProjectMedia } from "@/components/project-media";
 import { ProjectStatus } from "@/components/project-status";
+import { Reveal } from "@/components/reveal";
 import type { Project } from "@/lib/project-types";
 
 export function CollectionProjectRow({ project, index }: { project: Project; index: number }) {
   return (
-    <article className="collection-project-row" data-testid="collection-project" data-project-slug={project.slug}>
+    <Reveal as="article" variant="resolve" className="collection-project-row" data-testid="collection-project" data-project-slug={project.slug}>
       <div className="collection-project-media"><ProjectMedia project={project} priority={index < 2} /></div>
       <div className="collection-project-copy">
         <div className="collection-project-meta">
@@ -27,6 +28,6 @@ export function CollectionProjectRow({ project, index }: { project: Project; ind
           Explore the case study <ArrowUpRight aria-hidden="true" size={17} />
         </TransitionLink>
       </div>
-    </article>
+    </Reveal>
   );
 }
