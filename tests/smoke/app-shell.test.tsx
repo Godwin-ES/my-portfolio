@@ -4,6 +4,6 @@ import Home from "@/app/page";
 it("renders the portfolio inside a main landmark", async () => {
   render(await Home());
   expect(screen.getByRole("main")).toBeInTheDocument();
-  expect(screen.getByRole("heading", { level: 1, name: /AI Automation.*AI Engineering.*production mindset/i })).toBeInTheDocument();
+  expect(screen.getByRole("heading", { level: 1, name: /AI Engineering.*AI Automation.*Built to operate/i })).toBeInTheDocument();
   expect(screen.getAllByRole("heading", { name: "RelayDesk" }).length).toBeGreaterThan(0);
 });
