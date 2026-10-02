@@ -25,7 +25,7 @@ export default function Image() {
       <div style={{ display: "flex", alignItems: "stretch", gap: 52 }}>
         <div style={{ width: 710, display: "flex", flexDirection: "column", gap: 18 }}>
           <div style={{ color: "#155f6d", fontSize: 17, letterSpacing: 2.2, textTransform: "uppercase", fontWeight: 700 }}>AI Engineering + AI Automation</div>
-          <div style={{ fontSize: 88, lineHeight: .92, letterSpacing: -5.2, fontWeight: 650 }}>Built to<br />operate.</div>
+          <div style={{ display: "flex", flexDirection: "column", fontSize: 88, lineHeight: .92, letterSpacing: -5.2, fontWeight: 650 }}><span>Built to</span><span>operate.</span></div>
         </div>
         <div style={{ width: 300, display: "flex", flexDirection: "column", justifyContent: "center", gap: 30, borderLeft: "1px solid #ccd7d2", paddingLeft: 34 }}>
           <Lane label="Engineering" detail="Product · state · reliability" />
