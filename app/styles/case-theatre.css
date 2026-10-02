@@ -137,6 +137,14 @@
   background: #fff;
 }
 
+.case-section-nav {
+  scrollbar-width: none;
+}
+
+.case-section-nav::-webkit-scrollbar {
+  display: none;
+}
+
 @media (max-width: 980px) {
   .case-theatre-hero {
     grid-template-areas: "proof" "copy";
