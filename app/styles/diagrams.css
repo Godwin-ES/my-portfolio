@@ -3,6 +3,12 @@
   isolation: isolate;
 }
 
+.case-proof .loom-facade {
+  width: 100%;
+  max-width: 100%;
+  aspect-ratio: auto !important;
+}
+
 .visual-preview-grid {
   width: 100%;
   min-height: calc(100% - 34px);
