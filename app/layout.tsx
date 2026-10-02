@@ -1,7 +1,9 @@
 import type { ReactNode } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
+import "lenis/dist/lenis.css";
 import "./globals.css";
 import { homeMetadata } from "@/lib/metadata";
+import { MotionProvider } from "@/components/motion/motion-provider";
 import { RouteReset } from "@/components/navigation/route-reset";
 
 const geistSans = Geist({
@@ -20,8 +22,10 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
   return (
     <html lang="en" data-scroll-behavior="smooth">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <RouteReset />
-        {children}
+        <MotionProvider>
+          <RouteReset />
+          {children}
+        </MotionProvider>
       </body>
     </html>
   );
