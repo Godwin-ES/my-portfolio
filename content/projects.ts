@@ -100,9 +100,17 @@ const details: Record<string, Pick<Project, "title" | "collections" | "status" |
   },
 };
 
-const catalogue = ([...part2, ...part1, ...part3, ...part4, ...part5] as unknown as Project[]).map(
-  (project) => ({ ...project, ...details[project.slug] }),
-);
+const catalogue: Project[] = ([...part2, ...part1, ...part3, ...part4, ...part5] as unknown as Project[]).map((project): Project => {
+  const merged = { ...project, ...details[project.slug] };
+  const nodeIds = new Set(merged.architecture.nodes.map(({ id }) => id));
+  return {
+    ...merged,
+    architecture: {
+      ...merged.architecture,
+      previewNodeIds: merged.architecture.previewNodeIds?.filter((id) => nodeIds.has(id)).slice(0, 4),
+    },
+  };
+});
 
 export const projects = [
   catalogue.find(({ slug }) => slug === "voice-agent"),

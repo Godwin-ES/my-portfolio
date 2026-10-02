@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import { ProjectCard } from "@/components/project-card";
 import { getProjectBySlug } from "@/lib/projects";
 
@@ -16,6 +16,8 @@ it("renders project content and case-study link", () => {
 it("uses architecture fallback when no authentic hero image exists", () => {
   const project = getProjectBySlug("koya-lead-agent")!;
   render(<ProjectCard project={project} />);
-  expect(screen.getByTestId("architecture-fallback")).toBeInTheDocument();
+  const preview = screen.getByTestId("architecture-fallback");
+  expect(preview).toBeInTheDocument();
   expect(screen.getByRole("img", { name: `${project.title} system architecture preview` })).toBeInTheDocument();
+  expect(within(preview).getAllByTestId("preview-node").map((node) => node.getAttribute("data-node-id"))).toEqual(project.architecture.previewNodeIds);
 });

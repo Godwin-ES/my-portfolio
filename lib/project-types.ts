@@ -2,6 +2,7 @@ export type ArchitectureNode = {
   id: string;
   label: string;
   detail?: string;
+  layer?: string;
 };
 
 export type ArchitectureEdge = {
@@ -85,6 +86,7 @@ export type Project = {
   architecture: {
     nodes: ArchitectureNode[];
     edges: ArchitectureEdge[];
+    previewNodeIds?: string[];
   };
   engineeringDecisions: Decision[];
   reliability: ReliabilityItem[];

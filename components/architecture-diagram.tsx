@@ -2,28 +2,55 @@ import type { Project } from "@/lib/project-types";
 
 export function ArchitectureDiagram({ architecture }: { architecture: Project["architecture"] }) {
   const labels = new Map(architecture.nodes.map((node) => [node.id, node.label]));
+  const layers = architecture.nodes.reduce<Map<string, typeof architecture.nodes>>((grouped, node) => {
+    const layer = node.layer ?? "System";
+    grouped.set(layer, [...(grouped.get(layer) ?? []), node]);
+    return grouped;
+  }, new Map());
+  const outbound = architecture.edges.reduce<Map<string, typeof architecture.edges>>((grouped, edge) => {
+    grouped.set(edge.from, [...(grouped.get(edge.from) ?? []), edge]);
+    return grouped;
+  }, new Map());
+
   return (
-    <div className="architecture-diagram">
-      <div className="architecture-nodes">
-        {architecture.nodes.map((node, index) => (
-          <div className="architecture-node" key={node.id}>
-            <span>{String(index + 1).padStart(2, "0")}</span>
-            <strong>{node.label}</strong>
-            {node.detail ? <p>{node.detail}</p> : null}
-          </div>
+    <figure className="architecture-diagram architecture-system">
+      <div className="architecture-layers">
+        {[...layers].map(([layer, nodes], layerIndex) => (
+          <section className="architecture-layer" data-testid="architecture-layer" key={layer}>
+            <header><span>{String(layerIndex + 1).padStart(2, "0")}</span><h3>{layer}</h3></header>
+            <div className="architecture-layer-nodes">
+              {nodes.map((node) => (
+                <article className="architecture-node" data-testid="architecture-node" key={node.id}>
+                  <div className="architecture-node-copy">
+                    <strong>{node.label}</strong>
+                    {node.detail ? <p>{node.detail}</p> : null}
+                  </div>
+                  {(outbound.get(node.id) ?? []).length ? (
+                    <ul className="architecture-node-links" aria-label={`Connections from ${node.label}`}>
+                      {(outbound.get(node.id) ?? []).map((edge, index) => {
+                        const relationship = edge.label ?? "passes to";
+                        const destination = labels.get(edge.to) ?? edge.to;
+                        return (
+                          <li
+                            data-testid="architecture-connection"
+                            data-from={edge.from}
+                            data-to={edge.to}
+                            aria-label={`${node.label} to ${destination}: ${relationship}`}
+                            key={`${edge.from}-${edge.to}-${index}`}
+                          >
+                            <span>{relationship}</span><i aria-hidden="true">→</i><strong>{destination}</strong>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  ) : <p className="architecture-terminal">Final system outcome</p>}
+                </article>
+              ))}
+            </div>
+          </section>
         ))}
       </div>
-      <div className="architecture-edges" aria-label="System connections">
-        {architecture.edges.map((edge, index) => (
-          <div className="architecture-edge" key={`${edge.from}-${edge.to}-${index}`}>
-            <span>{labels.get(edge.from) ?? edge.from}</span>
-            <i aria-hidden="true" />
-            {edge.label ? <small>{edge.label}</small> : null}
-            <i aria-hidden="true" />
-            <span>{labels.get(edge.to) ?? edge.to}</span>
-          </div>
-        ))}
-      </div>
-    </div>
+      <figcaption>{architecture.nodes.length} components across {layers.size} system layers. Connections are shown at their point of origin.</figcaption>
+    </figure>
   );
 }
