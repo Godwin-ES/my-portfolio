@@ -29,8 +29,17 @@ function CollectionMotif({ motif }: { motif: WorkCollection["motif"] }) {
 export function CollectionGateway({ collection, projectTitles }: { collection: WorkCollection; projectTitles: string[] }) {
   const handlePointerMove = (event: PointerEvent<HTMLAnchorElement>) => {
     const bounds = event.currentTarget.getBoundingClientRect();
+    const x = (event.clientX - bounds.left) / bounds.width - 0.5;
+    const y = (event.clientY - bounds.top) / bounds.height - 0.5;
     event.currentTarget.style.setProperty("--gateway-x", `${event.clientX - bounds.left}px`);
     event.currentTarget.style.setProperty("--gateway-y", `${event.clientY - bounds.top}px`);
+    event.currentTarget.style.setProperty("--gateway-rx", `${y * -1.4}deg`);
+    event.currentTarget.style.setProperty("--gateway-ry", `${x * 1.4}deg`);
+  };
+
+  const resetPointer = (event: PointerEvent<HTMLAnchorElement>) => {
+    event.currentTarget.style.setProperty("--gateway-rx", "0deg");
+    event.currentTarget.style.setProperty("--gateway-ry", "0deg");
   };
 
   return (
@@ -39,6 +48,7 @@ export function CollectionGateway({ collection, projectTitles }: { collection: W
       href={`/work/${collection.id}`}
       aria-label={`Explore ${collection.title} projects`}
       onPointerMove={handlePointerMove}
+      onPointerLeave={resetPointer}
     >
       <span className="gateway-glow" aria-hidden="true" />
       <div className="gateway-topline"><span>{collection.eyebrow}</span><b>{projectTitles.length} projects</b></div>

@@ -1,11 +1,12 @@
 import { ArrowUpRight, Github, Mail } from "lucide-react";
 import { ExternalLink } from "@/components/external-link";
+import { Reveal } from "@/components/reveal";
 import { site } from "@/content/site";
 
 export function ContactSection() {
   return (
     <section id="contact" className="section contact-section">
-      <div className="container contact-card">
+      <Reveal className="container contact-card" variant="resolve">
         <div>
           <p className="eyebrow">Contact</p>
           <h2>Have an AI product or workflow that needs to work reliably in the real world?</h2>
@@ -15,7 +16,7 @@ export function ContactSection() {
           <ExternalLink className="button button-dark-outline" href={site.githubUrl}><Github aria-hidden="true" size={17} /> GitHub</ExternalLink>
           <a className="contact-resume" href={site.resumeUrl} target="_blank" rel="noreferrer">View résumé <ArrowUpRight aria-hidden="true" size={15} /></a>
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 }

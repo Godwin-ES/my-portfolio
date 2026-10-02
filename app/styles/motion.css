@@ -71,6 +71,45 @@ main, .site-header, .site-footer { position: relative; z-index: 1; }
     transform 520ms var(--ease-standard) var(--reveal-delay, 0ms);
 }
 
+.reveal[data-reveal="editorial"] { overflow: clip; }
+.reveal[data-reveal="editorial"][data-enhanced="true"][data-visible="false"] {
+  opacity: 0;
+  clip-path: inset(0 0 28% 0);
+  transform: translateY(30px);
+}
+.reveal[data-reveal="editorial"][data-enhanced="true"] {
+  transition:
+    opacity var(--duration-reveal) ease var(--reveal-delay, 0ms),
+    clip-path var(--duration-reveal) var(--ease-cinematic) var(--reveal-delay, 0ms),
+    transform var(--duration-reveal) var(--ease-expressive) var(--reveal-delay, 0ms);
+}
+
+.reveal[data-reveal="lateral"][data-enhanced="true"][data-visible="false"] { transform: translateX(-28px); }
+
+.reveal[data-reveal="resolve"][data-enhanced="true"][data-visible="false"] {
+  opacity: 0;
+  filter: blur(8px);
+  transform: translateY(24px) scale(.985);
+}
+.reveal[data-reveal="resolve"][data-enhanced="true"] {
+  transition:
+    opacity 760ms ease var(--reveal-delay, 0ms),
+    filter 760ms ease var(--reveal-delay, 0ms),
+    transform 760ms var(--ease-cinematic) var(--reveal-delay, 0ms);
+}
+
+.reveal[data-reveal="cascade"][data-enhanced="true"] { opacity: 1; transform: none; }
+.reveal[data-reveal="cascade"][data-enhanced="true"] > * {
+  transition: opacity 600ms ease, transform 680ms var(--ease-expressive);
+}
+.reveal[data-reveal="cascade"][data-enhanced="true"][data-visible="false"] > * { opacity: 0; transform: translateY(24px); }
+.reveal[data-reveal="cascade"][data-visible="true"] > * { opacity: 1; transform: none; }
+.reveal[data-reveal="cascade"] > :nth-child(2) { transition-delay: 70ms; }
+.reveal[data-reveal="cascade"] > :nth-child(3) { transition-delay: 140ms; }
+.reveal[data-reveal="cascade"] > :nth-child(4) { transition-delay: 210ms; }
+.reveal[data-reveal="cascade"] > :nth-child(5) { transition-delay: 280ms; }
+.reveal[data-reveal="cascade"] > :nth-child(6) { transition-delay: 350ms; }
+
 .desktop-nav a[aria-current], .mobile-nav a[aria-current] { color: var(--text); }
 .desktop-nav a[aria-current]:not(.nav-resume)::after {
   content: "";
@@ -106,5 +145,6 @@ main, .site-header, .site-footer { position: relative; z-index: 1; }
     transform: none !important;
     transition: none !important;
   }
+  .reveal[data-reveal="cascade"] > * { opacity: 1 !important; transform: none !important; transition: none !important; }
   ::view-transition-old(root), ::view-transition-new(root) { animation: none !important; }
 }

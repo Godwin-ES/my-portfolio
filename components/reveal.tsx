@@ -2,7 +2,9 @@
 
 import { type ReactNode, useCallback, useRef } from "react";
 
-export function Reveal({ as = "div", id, className, delayMs = 0, children }: { as?: "div" | "section" | "article"; id?: string; className?: string; delayMs?: number; children: ReactNode }) {
+export type RevealVariant = "rise" | "editorial" | "lateral" | "cascade" | "resolve";
+
+export function Reveal({ as = "div", id, className, delayMs = 0, variant = "rise", once = true, children }: { as?: "div" | "section" | "article"; id?: string; className?: string; delayMs?: number; variant?: RevealVariant; once?: boolean; children: ReactNode }) {
   const observerRef = useRef<IntersectionObserver | null>(null);
   const setNode = useCallback((node: HTMLElement | null) => {
     observerRef.current?.disconnect();
@@ -13,15 +15,14 @@ export function Reveal({ as = "div", id, className, delayMs = 0, children }: { a
     node.dataset.enhanced = "true";
     node.dataset.visible = "false";
     const observer = new IntersectionObserver((entries) => {
-      if (entries.some((entry) => entry.isIntersecting)) {
-        node.dataset.visible = "true";
-        observer.disconnect();
-      }
+      const visible = entries.some((entry) => entry.isIntersecting);
+      node.dataset.visible = String(visible);
+      if (visible && once) observer.disconnect();
     }, { rootMargin: "0px 0px -8%", threshold: 0.08 });
     observer.observe(node);
     observerRef.current = observer;
-  }, []);
+  }, [once]);
 
   const Tag = as;
-  return <Tag ref={setNode} id={id} className={["reveal", className].filter(Boolean).join(" ")} data-enhanced="false" data-visible="true" style={{ "--reveal-delay": `${delayMs}ms` } as React.CSSProperties}>{children}</Tag>;
+  return <Tag ref={setNode} id={id} className={["reveal", className].filter(Boolean).join(" ")} data-reveal={variant} data-enhanced="false" data-visible="true" style={{ "--reveal-delay": `${delayMs}ms` } as React.CSSProperties}>{children}</Tag>;
 }

@@ -1,3 +1,5 @@
+import { Reveal } from "@/components/reveal";
+
 const principles = [
   {
     title: "Make AI boundaries explicit.",
@@ -25,19 +27,19 @@ export function EngineeringPractice() {
   return (
     <section className="section practice-section" aria-labelledby="practice-title">
       <div className="container practice-layout">
-        <div className="practice-intro">
+        <Reveal className="practice-intro" variant="editorial">
           <p className="eyebrow">Engineering practice</p>
           <h2 id="practice-title">The details that turn AI capability into dependable software.</h2>
           <p>Models are only one part of the system. I design the boundaries, state, failure behaviour, and interface around them with equal care.</p>
-        </div>
-        <div className="practice-list">
+        </Reveal>
+        <Reveal className="practice-list" variant="cascade">
           {principles.map((principle, index) => (
             <article className="practice-item" data-testid="practice-item" key={principle.title}>
               <span>{String(index + 1).padStart(2, "0")}</span>
               <div><h3>{principle.title}</h3><p>{principle.example}</p><small>{principle.evidence}</small></div>
             </article>
           ))}
-        </div>
+        </Reveal>
       </div>
     </section>
   );

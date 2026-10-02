@@ -10,8 +10,9 @@ describe("Reveal", () => {
     const disconnect = vi.fn();
     vi.stubGlobal("matchMedia", vi.fn().mockReturnValue({ matches: false }));
     vi.stubGlobal("IntersectionObserver", vi.fn((cb: IntersectionObserverCallback) => { callback = cb; return { observe: vi.fn(), disconnect, unobserve: vi.fn(), takeRecords: vi.fn(), root: null, rootMargin: "0px", thresholds: [] }; }));
-    const { unmount } = render(<Reveal><p>Visible story</p></Reveal>);
+    const { unmount } = render(<Reveal variant="editorial"><p>Visible story</p></Reveal>);
     const wrapper = screen.getByText("Visible story").parentElement!;
+    expect(wrapper).toHaveAttribute("data-reveal", "editorial");
     expect(wrapper).not.toHaveAttribute("hidden");
     act(() => callback([{ isIntersecting: true, target: wrapper } as unknown as IntersectionObserverEntry], {} as IntersectionObserver));
     expect(wrapper).toHaveAttribute("data-visible", "true");
@@ -26,5 +27,12 @@ describe("Reveal", () => {
     render(<Reveal><p>Reduced motion story</p></Reveal>);
     expect(screen.getByText("Reduced motion story").parentElement).toHaveAttribute("data-visible", "true");
     expect(observer).not.toHaveBeenCalled();
+  });
+
+  it("keeps content visible when IntersectionObserver is unavailable", () => {
+    vi.stubGlobal("matchMedia", vi.fn().mockReturnValue({ matches: false }));
+    vi.stubGlobal("IntersectionObserver", undefined);
+    render(<Reveal variant="resolve"><p>Fallback story</p></Reveal>);
+    expect(screen.getByText("Fallback story").parentElement).toHaveAttribute("data-visible", "true");
   });
 });

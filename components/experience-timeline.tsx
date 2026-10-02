@@ -1,5 +1,6 @@
 import { experience } from "@/content/experience";
 import { SectionHeading } from "@/components/section-heading";
+import { Reveal } from "@/components/reveal";
 
 export function ExperienceTimeline() {
   return (
@@ -10,7 +11,7 @@ export function ExperienceTimeline() {
           title="Built across the stack. Grounded in systems."
           description="Roles spanning AI evaluation, real-time products, computer vision, backend services, and data infrastructure."
         />
-        <div className="experience-list">
+        <Reveal className="experience-list" variant="cascade">
           {experience.map((entry) => (
             <article data-testid="experience-item" className="experience-item" key={`${entry.organization}-${entry.role}`}>
               <div className="experience-meta"><span>{entry.dates}</span></div>
@@ -18,7 +19,7 @@ export function ExperienceTimeline() {
               <p className="experience-summary">{entry.summary}</p>
             </article>
           ))}
-        </div>
+        </Reveal>
       </div>
     </section>
   );
