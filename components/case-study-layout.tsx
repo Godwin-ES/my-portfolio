@@ -15,10 +15,10 @@ import type { Project } from "@/lib/project-types";
 import { getAdjacentProjects, getProjectCollection } from "@/lib/projects";
 
 const sections: CaseSectionLink[] = [
-  { id: "overview", label: "Overview" }, { id: "flow", label: "Flow" },
-  { id: "architecture", label: "Architecture" }, { id: "decisions", label: "Decisions" },
-  { id: "reliability", label: "Reliability" }, { id: "result", label: "Result" },
-  { id: "evidence", label: "Evidence" },
+  { id: "overview", label: "Snapshot" }, { id: "flow", label: "Flow" },
+  { id: "architecture", label: "System" }, { id: "decisions", label: "Decisions" },
+  { id: "reliability", label: "Recovery" }, { id: "result", label: "Outcome" },
+  { id: "evidence", label: "Proof" },
 ];
 
 function DetailGrid({ items }: { items: { title: string; detail: string }[] }) {
@@ -26,7 +26,7 @@ function DetailGrid({ items }: { items: { title: string; detail: string }[] }) {
 }
 
 function CaseSection({ id, eyebrow, title, children, wide = false }: { id: string; eyebrow: string; title: string; children: ReactNode; wide?: boolean }) {
-  return <Reveal as="section" id={id} className={`case-section ${wide ? "case-section-wide" : ""}`}><div className="case-section-heading"><p className="eyebrow">{eyebrow}</p><h2>{title}</h2></div><div className="case-section-body">{children}</div></Reveal>;
+  return <Reveal as="section" id={id} className={`case-section case-section-${id} ${wide ? "case-section-wide" : ""}`}><div className="case-section-heading"><p className="eyebrow">{eyebrow}</p><h2>{title}</h2></div><div className="case-section-body">{children}</div></Reveal>;
 }
 
 export async function CaseStudyLayout({ project }: { project: Project }) {
@@ -36,6 +36,7 @@ export async function CaseStudyLayout({ project }: { project: Project }) {
   const returnPath = collection
     ? { href: `/work/${collection.id}`, label: collection.title }
     : { href: "/#work", label: "selected work" };
+
   return <main id="main-content" className="case-study" tabIndex={-1}>
     <div className="container case-back-row"><Link href={returnPath.href}><ArrowLeft aria-hidden="true" size={16} /> Back to {returnPath.label}</Link></div>
     <header className="container case-hero">
@@ -49,18 +50,23 @@ export async function CaseStudyLayout({ project }: { project: Project }) {
     </header>
     <CaseStudyNavigation sections={sections} previous={adjacent.previous} next={adjacent.next} />
     <div className="case-content container">
-      <section id="overview" className="case-section case-overview">
-        <div><p className="eyebrow">01 · Overview</p><h2>What it solves</h2><p className="case-prose">{project.problem}</p></div>
-        <div><p className="eyebrow">The product</p><h2>How it works</h2><p className="case-prose">{project.system}</p></div>
-        <ProjectFacts facts={project.facts} />
-        {project.access ? <ProjectAccess {...project.access} /> : null}
-      </section>
-      <CaseSection id="flow" eyebrow="02" title="Product flow" wide><ProjectFlow steps={project.flow} /></CaseSection>
-      <CaseSection id="architecture" eyebrow="03" title="Architecture" wide><ArchitectureDiagram architecture={project.architecture} /></CaseSection>
-      <CaseSection id="decisions" eyebrow="04" title="Engineering decisions" wide><DetailGrid items={project.engineeringDecisions} /></CaseSection>
-      <CaseSection id="reliability" eyebrow="05" title="Reliability & edge cases" wide><DetailGrid items={project.reliability} /></CaseSection>
-      <CaseSection id="result" eyebrow="06" title="Result"><p className="case-result">{project.result}</p></CaseSection>
-      <CaseSection id="evidence" eyebrow="07" title="Evidence" wide><EvidenceList items={project.evidence} /></CaseSection>
+      <Reveal as="section" id="overview" className="case-section case-overview case-section-overview">
+        <div className="case-section-heading case-overview-heading"><p className="eyebrow">01 · System snapshot</p><h2>The system at a glance</h2></div>
+        <div className="case-section-body">
+          <div className="case-overview-grid">
+            <article><span>Problem</span><p>{project.problem}</p></article>
+            <article><span>System boundary</span><p>{project.system}</p></article>
+          </div>
+          <ProjectFacts facts={project.facts} />
+          {project.access ? <ProjectAccess {...project.access} /> : null}
+        </div>
+      </Reveal>
+      <CaseSection id="flow" eyebrow="02 · Behaviour" title="Product flow" wide><ProjectFlow steps={project.flow} /></CaseSection>
+      <CaseSection id="architecture" eyebrow="03 · Structure" title="System design" wide><ArchitectureDiagram architecture={project.architecture} /></CaseSection>
+      <CaseSection id="decisions" eyebrow="04 · Judgment" title="Engineering decisions" wide><DetailGrid items={project.engineeringDecisions} /></CaseSection>
+      <CaseSection id="reliability" eyebrow="05 · Boundaries" title="Failure & recovery" wide><DetailGrid items={project.reliability} /></CaseSection>
+      <CaseSection id="result" eyebrow="06 · Resolution" title="Outcome"><p className="case-result">{project.result}</p></CaseSection>
+      <CaseSection id="evidence" eyebrow="07 · Inspect it" title="How to verify it" wide><EvidenceList items={project.evidence} /></CaseSection>
       <CaseStudyNavigation sections={[]} previous={adjacent.previous} next={adjacent.next} />
     </div>
   </main>;

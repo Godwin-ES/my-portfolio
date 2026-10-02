@@ -4,11 +4,12 @@ import { site } from "@/content/site";
 
 export function ContactSection() {
   return (
-    <section id="contact" className="section contact-section">
+    <section id="contact" className="section contact-section journey-chapter">
       <div className="container contact-card">
-        <div>
-          <p className="eyebrow">Contact</p>
-          <h2>Have an AI product or workflow that needs to work reliably in the real world?</h2>
+        <div className="contact-copy">
+          <p className="eyebrow">Contact · Final state</p>
+          <h2>Need the AI feature to behave like software, not a demo?</h2>
+          <p>I’m interested in AI engineering, automation, and software work where the hard part is system quality: state, latency, failure handling, evidence, and user trust.</p>
         </div>
         <div className="contact-actions">
           <a className="button button-light" href={`mailto:${site.email}`} aria-label="Email me"><Mail aria-hidden="true" size={17} /> Email me</a>
