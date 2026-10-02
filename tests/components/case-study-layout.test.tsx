@@ -2,12 +2,14 @@ import { render, screen } from "@testing-library/react";
 import { CaseStudyLayout } from "@/components/case-study-layout";
 import { getProjectBySlug } from "@/lib/projects";
 
-it("renders proof before the complete technical case-study structure", async () => {
+it("renders proof before a seven-part system case-study narrative", async () => {
   render(await CaseStudyLayout({ project: getProjectBySlug("koya-lead-agent")! }));
-  for (const heading of ["What it solves", "How it works", "Architecture", "Engineering decisions", "Reliability & edge cases", "Result", "Evidence"]) {
+  for (const heading of ["The system at a glance", "Product flow", "System design", "Engineering decisions", "Failure & recovery", "Outcome", "How to verify it"]) {
     expect(screen.getByRole("heading", { level: 2, name: heading })).toBeInTheDocument();
   }
   for (const id of ["overview", "flow", "architecture", "decisions", "reliability", "result", "evidence"]) expect(document.getElementById(id)).toBeInTheDocument();
+  expect(screen.getByText("Problem")).toBeInTheDocument();
+  expect(screen.getByText("System boundary")).toBeInTheDocument();
   expect(document.querySelector(".case-proof")?.compareDocumentPosition(document.getElementById("architecture")!)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
 });
 
