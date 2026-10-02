@@ -8,7 +8,7 @@ export function ContactSection() {
       <div className="container contact-card">
         <div>
           <p className="eyebrow">Contact</p>
-          <h2>Building something where AI needs to work reliably inside a real product or workflow?</h2>
+          <h2>Have an AI product or workflow that needs to work reliably in the real world?</h2>
         </div>
         <div className="contact-actions">
           <a className="button button-light" href={`mailto:${site.email}`} aria-label="Email me"><Mail aria-hidden="true" size={17} /> Email me</a>

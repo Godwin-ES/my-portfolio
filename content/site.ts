@@ -8,6 +8,6 @@ export const site = {
   githubUrl: "https://github.com/Godwin-ES",
   resumeUrl: "/resume/Ekanem_Godwin_Resume.pdf",
   navigation: [{ label: "Work", href: "#work" },{ label: "Experience", href: "#experience" },{ label: "About", href: "#about" },{ label: "Contact", href: "#contact" }],
-  about: "I’m an Electrical & Electronics Engineering graduate who moved from applied AI and embedded systems into production-oriented software and automation. That engineering foundation shapes how I approach AI work: define the system boundary, make state and failure modes explicit, and keep probabilistic model output separate from the rules that must remain dependable. My recent work spans agentic research, RAG, real-time voice AI, workflow automation, approval systems, and operational reporting. I’m most interested in building AI features that have to survive contact with real users, real data, and real business processes rather than only perform well in a demo.",
+  about: "I’m an Electrical & Electronics Engineering graduate who builds at the seam between AI systems and product software. That foundation keeps my work grounded in clear boundaries, durable state, deliberate failure paths, and the people operating the system.",
   education: "B.Eng. Electrical & Electronics Engineering, Covenant University · 4.80/5.00"
 } as const;

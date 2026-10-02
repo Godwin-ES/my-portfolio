@@ -7,8 +7,8 @@ export function ExperienceTimeline() {
       <div className="container">
         <SectionHeading
           eyebrow="Experience"
-          title="Engineering across AI, backend, data, and connected systems."
-          description="A concise view of the environments that shaped how I build and evaluate software systems."
+          title="Built across the stack. Grounded in systems."
+          description="Roles spanning AI evaluation, real-time products, computer vision, backend services, and data infrastructure."
         />
         <div className="experience-list">
           {experience.map((entry) => (
