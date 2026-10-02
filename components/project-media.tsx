@@ -3,7 +3,7 @@ import { ProjectVisual } from "@/components/project-visual";
 import { LOOM_FALLBACK } from "@/lib/loom";
 import type { Project } from "@/lib/project-types";
 
-export function ProjectMedia({ project, priority = false, variant = "card" }: { project: Project; priority?: boolean; variant?: "card" | "hero" }) {
+export function ProjectMedia({ project, priority = false, variant = "card" }: { project: Project; priority?: boolean; variant?: "card" | "hero" | "theatre" }) {
   const media = project.media;
   if (media.kind === "loom" && media.status === "available") {
     return <LoomFacade loomId={media.loomId} title={`${project.title} walkthrough`} durationLabel={media.durationLabel} meta={{ ...LOOM_FALLBACK, thumbnailUrl: media.poster ?? null }} />;

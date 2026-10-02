@@ -5,8 +5,9 @@ import { ToolkitGrid } from "@/components/toolkit-grid";
 import { AboutSection } from "@/components/about-section";
 import { ContactSection } from "@/components/contact-section";
 import { Hero } from "@/components/hero";
-import { SelectedWork } from "@/components/selected-work";
+import { ProjectTheatre } from "@/components/project-theatre";
 import { MoreProjects } from "@/components/more-projects";
+import { getFeaturedProjects } from "@/lib/projects";
 
 it("renders the six AI Automation systems in order without legacy public labels", () => {
   render(<AutomationProgression />);
@@ -24,7 +25,7 @@ it("renders the six AI Automation systems in order without legacy public labels"
 });
 
 it("positions AI Automation and AI Engineering as one production practice", async () => {
-  render(<><Hero />{await SelectedWork()}</>);
+  render(<><Hero /><ProjectTheatre projects={getFeaturedProjects()} /></>);
   expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(/AI Automation/i);
   expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(/AI Engineering/i);
   expect(screen.getByRole("link", { name: /explore selected work/i })).toHaveAttribute("href", "#work");
@@ -42,8 +43,8 @@ it("positions AI Automation and AI Engineering as one production practice", asyn
   expect(screen.getByText("Production system")).toBeInTheDocument();
   expect(screen.queryByText(/\d+%|\d+\+/)).not.toBeInTheDocument();
 
-  for (const title of ["RelayDesk", "EchoRun", "LeadLens", "ChatDocs"]) expect(screen.getByRole("heading", { name: title })).toBeInTheDocument();
-  expect(screen.queryByRole("heading", { name: "SignBridge" })).not.toBeInTheDocument();
+  for (const title of ["RelayDesk", "EchoRun", "LeadLens", "ChatDocs"]) expect(screen.getByRole("button", { name: `Select ${title}` })).toBeInTheDocument();
+  expect(screen.queryByRole("button", { name: /Select SignBridge/i })).not.toBeInTheDocument();
 });
 
 it("keeps every approved catalogue project discoverable", () => {

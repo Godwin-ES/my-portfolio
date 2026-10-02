@@ -4,10 +4,11 @@ import { ContactSection } from "@/components/contact-section";
 import { ExperienceTimeline } from "@/components/experience-timeline";
 import { Hero } from "@/components/hero";
 import { MoreProjects } from "@/components/more-projects";
-import { SelectedWork } from "@/components/selected-work";
+import { ProjectTheatre } from "@/components/project-theatre";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { ToolkitGrid } from "@/components/toolkit-grid";
+import { getFeaturedProjects } from "@/lib/projects";
 
 export default function Home() {
   return (
@@ -15,7 +16,7 @@ export default function Home() {
       <SiteHeader />
       <main id="main-content" tabIndex={-1}>
         <Hero />
-        <SelectedWork />
+        <ProjectTheatre projects={getFeaturedProjects()} />
         <AutomationProgression />
         <MoreProjects />
         <ExperienceTimeline />
