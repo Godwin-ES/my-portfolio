@@ -3,12 +3,12 @@ import { projects } from "@/content/projects";
 import { validateProjects } from "@/lib/project-validation";
 import {
   getAdjacentProjects,
-  getAppliedMlProjects,
-  getAutomationProjects,
+  getCollectionProjects,
   getFeaturedProjects,
-  getPersonalProjects,
+  getProjectCollection,
   getProjectBySlug,
 } from "@/lib/projects";
+import { getWorkCollection, workCollections } from "@/lib/work-collections";
 import type { Project } from "@/lib/project-types";
 
 const publicNames = [
@@ -31,15 +31,18 @@ describe("portfolio project content", () => {
     expect(validateProjects(projects)).toEqual([]);
   });
 
-  it("returns the approved selected, automation, personal, and applied-ML collections", () => {
+  it("returns the four standout projects in the approved order", () => {
     expect(getFeaturedProjects().map((project) => project.title)).toEqual([
-      "EchoRun",
-      "SignBridge",
       "RelayDesk",
-      "ChatDocs",
+      "EchoRun",
       "LeadLens",
+      "ChatDocs",
     ]);
-    expect(getAutomationProjects().map((project) => project.title)).toEqual([
+  });
+
+  it("assigns every project to exactly one approved work collection", () => {
+    expect(workCollections.map(({ id }) => id)).toEqual(["ai-automation", "ai-engineering"]);
+    expect(getCollectionProjects("ai-automation").map((project) => project.title)).toEqual([
       "Intelligent Invoice Processing",
       "Operations Reporting & Decision Support",
       "ProposalFlow",
@@ -47,18 +50,20 @@ describe("portfolio project content", () => {
       "LeadLens",
       "RelayDesk",
     ]);
-    expect(getPersonalProjects().map((project) => project.title)).toEqual([
+    expect(getCollectionProjects("ai-engineering").map((project) => project.title)).toEqual([
       "EchoRun",
       "ChatDocs",
       "SignBridge",
     ]);
-    expect(getAppliedMlProjects().map((project) => project.title)).toContain(
-      "Malaria Detection with CNNs",
-    );
+    for (const project of projects) {
+      expect(project.collections).toHaveLength(1);
+      expect(getProjectCollection(project)?.projectSlugs).toContain(project.slug);
+    }
+    expect(getWorkCollection("unknown")).toBeUndefined();
   });
 
-  it("keeps personal work walkthrough-free and marks RelayDesk walkthrough as coming soon", () => {
-    for (const project of getPersonalProjects()) expect(project.media.kind).not.toBe("loom");
+  it("keeps AI Engineering walkthrough-free and marks RelayDesk walkthrough as coming soon", () => {
+    for (const project of getCollectionProjects("ai-engineering")) expect(project.media.kind).not.toBe("loom");
     expect(getProjectBySlug("relaydesk")?.media).toMatchObject({
       kind: "loom",
       status: "coming-soon",
@@ -104,9 +109,20 @@ describe("portfolio project content", () => {
       expect(project.stack.length).toBeLessThanOrEqual(7);
     }
     expect(getAdjacentProjects("relaydesk")).toEqual({
-      previous: expect.objectContaining({ slug: "signbridge" }),
+      previous: expect.objectContaining({ slug: "koya-lead-agent" }),
+      next: undefined,
+    });
+    expect(getAdjacentProjects("voice-agent")).toEqual({
+      previous: undefined,
       next: expect.objectContaining({ slug: "rag-app" }),
     });
+  });
+
+  it("removes malaria detection and legacy public naming", () => {
+    expect(projects).toHaveLength(9);
+    expect(getProjectBySlug("malaria-detection")).toBeUndefined();
+    const publicCopy = projects.flatMap(({ title, category, summary, problem, system }) => [title, category, summary, problem, system]).join(" ");
+    expect(publicCopy).not.toMatch(/Koya|AI Automation Program|ContentLedger/i);
   });
 
   it("rejects duplicate slugs and malformed public links", () => {

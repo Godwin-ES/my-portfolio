@@ -12,7 +12,7 @@ import { ProjectMedia } from "@/components/project-media";
 import { ProjectStatus } from "@/components/project-status";
 import { Reveal } from "@/components/reveal";
 import type { Project } from "@/lib/project-types";
-import { getAdjacentProjects } from "@/lib/projects";
+import { getAdjacentProjects, getProjectCollection } from "@/lib/projects";
 
 const sections: CaseSectionLink[] = [
   { id: "overview", label: "Overview" }, { id: "flow", label: "Flow" },
@@ -32,11 +32,10 @@ function CaseSection({ id, eyebrow, title, children, wide = false }: { id: strin
 export async function CaseStudyLayout({ project }: { project: Project }) {
   const adjacent = getAdjacentProjects(project.slug);
   const media = await ProjectMedia({ project, priority: true, variant: "hero" });
-  const returnPath = project.collections.includes("selected")
-    ? { href: "/#work", label: "selected work" }
-    : project.collections.includes("ai-automation")
-      ? { href: "/#automation", label: "AI Automation" }
-      : { href: "/#projects", label: "project index" };
+  const collection = getProjectCollection(project);
+  const returnPath = collection
+    ? { href: `/work/${collection.id}`, label: collection.title }
+    : { href: "/#work", label: "selected work" };
   return <main className="case-study">
     <div className="container case-back-row"><Link href={returnPath.href}><ArrowLeft aria-hidden="true" size={16} /> Back to {returnPath.label}</Link></div>
     <header className="container case-hero">

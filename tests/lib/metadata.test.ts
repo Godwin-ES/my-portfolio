@@ -26,5 +26,6 @@ describe("portfolio metadata",()=>{
     expect(projectEntries).toHaveLength(projects.length);
     expect(new Set(entries.map(({url})=>url)).size).toBe(entries.length);
     for(const slug of ["proposal-studio","content-studio","koya-lead-agent","voice-agent","rag-app","relaydesk","signbridge"])expect(projectEntries.some(({url})=>url.endsWith(`/work/${slug}`))).toBe(true);
+    expect(projectEntries.some(({url})=>url.endsWith("/work/malaria-detection"))).toBe(false);
   });
 });

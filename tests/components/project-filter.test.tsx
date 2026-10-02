@@ -15,8 +15,8 @@ describe("ProjectFilter", () => {
     render(<ProjectFilter projects={projects} />);
     expect(screen.getAllByTestId("filter-project")).toHaveLength(projects.length);
     expect(screen.getByRole("button", { name: "All" })).toHaveAttribute("aria-pressed", "true");
-    fireEvent.click(screen.getByRole("button", { name: "Personal" }));
-    expect(screen.getByRole("button", { name: "Personal" })).toHaveAttribute("aria-pressed", "true");
+    fireEvent.click(screen.getByRole("button", { name: "AI Engineering" }));
+    expect(screen.getByRole("button", { name: "AI Engineering" })).toHaveAttribute("aria-pressed", "true");
     expect(screen.getAllByTestId("filter-project")).toHaveLength(3);
     expect(screen.getByRole("link", { name: /agent repository/i })).toBeInTheDocument();
   });
@@ -26,7 +26,7 @@ describe("ProjectFilter", () => {
     expect(screen.getByRole("button", { name: "All" })).toHaveAttribute("aria-pressed", "true");
     fireEvent.click(screen.getByRole("button", { name: "AI Automation" }));
     expect(screen.getAllByTestId("filter-project")).toHaveLength(6);
-    fireEvent.click(screen.getByRole("button", { name: "Applied ML" }));
-    expect(screen.getAllByTestId("filter-project")).toHaveLength(1);
+    fireEvent.click(screen.getByRole("button", { name: "AI Engineering" }));
+    expect(screen.getAllByTestId("filter-project")).toHaveLength(3);
   });
 });

@@ -27,7 +27,7 @@ export type EvidenceItem = {
   url?: string;
 };
 
-export type ProjectCollection = "selected" | "personal" | "ai-automation" | "applied-ml";
+export type ProjectCollection = "ai-automation" | "ai-engineering";
 
 export type ProjectStatus = "live" | "complete" | "limited" | "private" | "in-development" | "archived";
 

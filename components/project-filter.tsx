@@ -7,9 +7,8 @@ import type { Project, ProjectCollection } from "@/lib/project-types";
 type Filter = "all" | ProjectCollection;
 const filters: { value: Filter; label: string }[] = [
   { value: "all", label: "All" },
-  { value: "personal", label: "Personal" },
   { value: "ai-automation", label: "AI Automation" },
-  { value: "applied-ml", label: "Applied ML" },
+  { value: "ai-engineering", label: "AI Engineering" },
 ];
 
 export function ProjectFilter({ projects, initialFilter = "all" }: { projects: Project[]; initialFilter?: Filter }) {

@@ -23,17 +23,18 @@ it("renders the six AI Automation systems in order without legacy public labels"
   expect(screen.queryByText(/Koya/i)).not.toBeInTheDocument();
 });
 
-it("leads with a clear value proposition and the five flagship products", async () => {
+it("leads with a clear value proposition and the four flagship products", async () => {
   render(<><Hero />{await SelectedWork()}</>);
   expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(/AI products/i);
   expect(screen.getByRole("link", { name: /explore selected work/i })).toHaveAttribute("href", "#work");
-  for (const title of ["EchoRun", "SignBridge", "RelayDesk", "ChatDocs", "LeadLens"]) expect(screen.getByRole("heading", { name: title })).toBeInTheDocument();
+  for (const title of ["RelayDesk", "EchoRun", "LeadLens", "ChatDocs"]) expect(screen.getByRole("heading", { name: title })).toBeInTheDocument();
+  expect(screen.queryByRole("heading", { name: "SignBridge" })).not.toBeInTheDocument();
 });
 
-it("keeps applied ML and every catalogue project discoverable", () => {
+it("keeps every approved catalogue project discoverable", () => {
   render(<MoreProjects />);
-  expect(screen.getByText("Malaria Detection with CNNs")).toBeInTheDocument();
-  expect(screen.getAllByTestId("filter-project")).toHaveLength(10);
+  expect(screen.queryByText("Malaria Detection with CNNs")).not.toBeInTheDocument();
+  expect(screen.getAllByTestId("filter-project")).toHaveLength(9);
 });
 
 it("keeps experience and toolkit concise", () => {

@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { getAutomationProjects } from "@/lib/projects";
+import { getCollectionProjects } from "@/lib/projects";
 import { SectionHeading } from "@/components/section-heading";
 
 export function AutomationProgression() {
-  const projects = getAutomationProjects();
+  const projects = getCollectionProjects("ai-automation");
   return (
     <section id="automation" className="section automation-section" aria-labelledby="automation-title">
       <div className="container">

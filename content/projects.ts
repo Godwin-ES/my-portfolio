@@ -8,7 +8,7 @@ import type { Project } from "@/lib/project-types";
 const details: Record<string, Pick<Project, "title" | "collections" | "status" | "media" | "links" | "facts" | "flow"> & Partial<Pick<Project, "featured" | "featuredOrder">>> = {
   "voice-agent": {
     title: "EchoRun",
-    collections: ["selected", "personal"],
+    collections: ["ai-engineering"],
     status: "live",
     media: { kind: "architecture" },
     links: [
@@ -19,11 +19,11 @@ const details: Record<string, Pick<Project, "title" | "collections" | "status" |
     facts: [{ value: "Real-time", label: "streaming voice interaction" }, { value: "2", label: "coordinated repositories" }],
     flow: [{ label: "Join a room" }, { label: "Speak naturally" }, { label: "Transcribe" }, { label: "Reason and use tools" }, { label: "Stream a voice response" }],
     featured: true,
-    featuredOrder: 1,
+    featuredOrder: 2,
   },
   "rag-app": {
     title: "ChatDocs",
-    collections: ["selected", "personal"],
+    collections: ["ai-engineering"],
     status: "live",
     media: { kind: "architecture" },
     links: [
@@ -37,7 +37,7 @@ const details: Record<string, Pick<Project, "title" | "collections" | "status" |
   },
   "koya-lead-agent": {
     title: "LeadLens",
-    collections: ["selected", "ai-automation"],
+    collections: ["ai-automation"],
     status: "live",
     media: { kind: "loom", status: "available", loomId: "0782a9f803264877a2f832000ee114bd", durationLabel: "4:44", poster: "https://cdn.loom.com/sessions/thumbnails/0782a9f803264877a2f832000ee114bd-be5ad2285fd76bd8.gif" },
     links: [
@@ -47,7 +47,7 @@ const details: Record<string, Pick<Project, "title" | "collections" | "status" |
     facts: [{ value: "Review-first", label: "human approval boundary" }, { value: "5", label: "controlled research stages" }],
     flow: [{ label: "Define objective" }, { label: "Discover companies" }, { label: "Research evidence" }, { label: "Qualify" }, { label: "Review drafts" }],
     featured: true,
-    featuredOrder: 5,
+    featuredOrder: 3,
   },
   "proposal-studio": {
     title: "ProposalFlow",
@@ -96,16 +96,6 @@ const details: Record<string, Pick<Project, "title" | "collections" | "status" |
     links: [],
     facts: [{ value: "5", label: "explicit exception paths" }, { value: "Stable", label: "duplicate detection key" }],
     flow: [{ label: "Receive email" }, { label: "Detect invoice" }, { label: "Extract fields" }, { label: "Validate and deduplicate" }, { label: "Register outcome" }],
-    featured: false,
-  },
-  "malaria-detection": {
-    title: "Malaria Detection with CNNs",
-    collections: ["applied-ml"],
-    status: "archived",
-    media: { kind: "architecture" },
-    links: [{ kind: "repository", label: "Source repository", url: "https://github.com/Godwin-ES/Malaria-Detection-using-CNNs" }],
-    facts: [{ value: "2-stage", label: "validation and classification" }],
-    flow: [{ label: "Upload image" }, { label: "Validate cell image" }, { label: "Run malaria CNN" }, { label: "Return confidence" }],
     featured: false,
   },
 };

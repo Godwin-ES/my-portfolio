@@ -12,9 +12,8 @@ it("renders proof before the complete technical case-study structure", async () 
 });
 
 it("omits unavailable live actions", async () => {
-  render(await CaseStudyLayout({ project: getProjectBySlug("malaria-detection")! }));
+  render(await CaseStudyLayout({ project: getProjectBySlug("invoice-processing")! }));
   expect(screen.queryByRole("link", { name: /live demo/i })).not.toBeInTheDocument();
-  expect(screen.getAllByRole("link", { name: /source repository/i }).length).toBeGreaterThan(0);
 });
 
 it("does not offer walkthrough UI for personal products", async () => {
@@ -22,9 +21,9 @@ it("does not offer walkthrough UI for personal products", async () => {
   expect(screen.queryByText(/walkthrough/i)).not.toBeInTheDocument();
 });
 
-it("returns non-selected projects to their relevant homepage collection", async () => {
+it("returns projects to their owning collection", async () => {
   const { rerender } = render(await CaseStudyLayout({ project: getProjectBySlug("proposal-studio")! }));
-  expect(screen.getByRole("link", { name: /back to AI Automation/i })).toHaveAttribute("href", "/#automation");
-  rerender(await CaseStudyLayout({ project: getProjectBySlug("malaria-detection")! }));
-  expect(screen.getByRole("link", { name: /back to project index/i })).toHaveAttribute("href", "/#projects");
+  expect(screen.getByRole("link", { name: /back to AI Automation/i })).toHaveAttribute("href", "/work/ai-automation");
+  rerender(await CaseStudyLayout({ project: getProjectBySlug("signbridge")! }));
+  expect(screen.getByRole("link", { name: /back to AI Engineering/i })).toHaveAttribute("href", "/work/ai-engineering");
 });
