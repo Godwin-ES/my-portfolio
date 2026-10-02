@@ -86,3 +86,42 @@
   .loom-poster { transform: none !important; }
   .loom-play-control, .loom-timeline i { transition: none !important; }
 }
+
+/* Product journey connector geometry --------------------------------------- */
+.project-flow li:not(:last-child)::after { content: none; }
+.project-flow .flow-connector {
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  right: -13px;
+  width: 25px;
+  height: 25px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--bg);
+  color: var(--accent);
+  font-style: normal;
+  transform: translateY(-50%);
+}
+.project-flow .flow-connector::before { content: "→"; font-size: .7rem; }
+
+@media (max-width: 900px) and (min-width: 601px) {
+  .project-flow li:nth-child(3) .flow-connector { display: none; }
+}
+
+@media (max-width: 600px) {
+  .project-flow .flow-connector {
+    top: auto;
+    right: auto;
+    bottom: -19px;
+    left: 24px;
+    transform: none;
+  }
+  .project-flow .flow-connector::before { content: "↓"; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-flow .flow-connector { opacity: 1 !important; clip-path: none !important; }
+}

@@ -31,6 +31,9 @@ describe("responsive diagram system", () => {
     render(<ArchitectureDiagram architecture={project.architecture} />);
     expect(screen.getAllByTestId("architecture-layer").length).toBeGreaterThanOrEqual(3);
     expect(screen.getAllByTestId("architecture-node")).toHaveLength(project.architecture.nodes.length);
+    expect(screen.getAllByTestId("architecture-node").map((node) => Number(node.dataset.motionOrder))).toEqual(
+      project.architecture.nodes.map((_, index) => index),
+    );
     const connections = screen.getAllByTestId("architecture-connection");
     expect(connections).toHaveLength(project.architecture.edges.length);
     project.architecture.edges.forEach((edge, index) => {
@@ -51,5 +54,6 @@ describe("responsive diagram system", () => {
       expect.stringContaining("Review"), expect.stringContaining("Deliver"),
     ]);
     expect(rendered.every((step) => !step.hidden && !step.className.includes("hidden"))).toBe(true);
+    expect(rendered.map((step) => Number(step.dataset.motionOrder))).toEqual([0, 1, 2, 3, 4]);
   });
 });

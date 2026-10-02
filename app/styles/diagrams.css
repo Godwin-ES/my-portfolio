@@ -223,6 +223,51 @@
   font: 520 .61rem/1.5 var(--font-geist-mono), monospace;
 }
 
+/* Scroll-directed diagram assembly ----------------------------------------- */
+.architecture-system,
+.architecture-fallback,
+.project-flow {
+  --signal-progress: 0;
+}
+
+.architecture-system::after,
+.architecture-fallback::after {
+  content: "";
+  position: absolute;
+  z-index: 4;
+  inset: 0 auto 0 0;
+  width: 1px;
+  pointer-events: none;
+  background: linear-gradient(transparent 5%, rgba(50, 132, 132, .72), transparent 95%);
+  opacity: calc(var(--signal-progress) * .7);
+  transform: translateX(calc(var(--signal-progress) * 100cqw));
+}
+
+.architecture-system { position: relative; container-type: inline-size; }
+.architecture-node { transition: border-color var(--duration-state) ease, box-shadow var(--duration-state) ease; }
+.architecture-node:hover { border-color: #9ab9ae; box-shadow: 0 12px 28px rgba(25, 58, 50, .08); }
+.architecture-node-links li { transform-origin: left center; }
+.visual-connector { transform-origin: left center; }
+
+@media (max-width: 600px) {
+  .architecture-system::after,
+  .architecture-fallback::after {
+    inset: 0 0 auto;
+    width: auto;
+    height: 1px;
+    transform: translateY(calc(var(--signal-progress) * 100%));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .architecture-system,
+  .architecture-fallback,
+  .project-flow { --signal-progress: 1 !important; }
+  [data-motion-node],
+  [data-motion-connector],
+  [data-motion-label] { opacity: 1 !important; transform: none !important; clip-path: none !important; }
+}
+
 @media (max-width: 900px) {
   .project-flow {
     grid-template-columns: repeat(3, minmax(0, 1fr));

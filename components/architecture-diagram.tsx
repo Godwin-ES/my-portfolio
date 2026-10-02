@@ -1,7 +1,16 @@
+"use client";
+
+import { useRef, type CSSProperties } from "react";
+import { useDiagramSequence } from "@/components/motion/use-diagram-sequence";
 import type { Project } from "@/lib/project-types";
 
+type MotionStyle = CSSProperties & { "--motion-order": number };
+
 export function ArchitectureDiagram({ architecture }: { architecture: Project["architecture"] }) {
+  const diagramRef = useRef<HTMLElement>(null);
+  useDiagramSequence(diagramRef);
   const labels = new Map(architecture.nodes.map((node) => [node.id, node.label]));
+  const orderById = new Map(architecture.nodes.map((node, index) => [node.id, index]));
   const layers = architecture.nodes.reduce<Map<string, typeof architecture.nodes>>((grouped, node) => {
     const layer = node.layer ?? "System";
     grouped.set(layer, [...(grouped.get(layer) ?? []), node]);
@@ -13,14 +22,16 @@ export function ArchitectureDiagram({ architecture }: { architecture: Project["a
   }, new Map());
 
   return (
-    <figure className="architecture-diagram architecture-system">
+    <figure ref={diagramRef} className="architecture-diagram architecture-system">
       <div className="architecture-layers">
         {[...layers].map(([layer, nodes], layerIndex) => (
           <section className="architecture-layer" data-testid="architecture-layer" key={layer}>
-            <header><span>{String(layerIndex + 1).padStart(2, "0")}</span><h3>{layer}</h3></header>
+            <header data-motion-label><span>{String(layerIndex + 1).padStart(2, "0")}</span><h3>{layer}</h3></header>
             <div className="architecture-layer-nodes">
-              {nodes.map((node) => (
-                <article className="architecture-node" data-testid="architecture-node" key={node.id}>
+              {nodes.map((node) => {
+                const motionOrder = orderById.get(node.id) ?? 0;
+                return (
+                <article className="architecture-node" data-testid="architecture-node" data-motion-node data-motion-order={motionOrder} style={{ "--motion-order": motionOrder } as MotionStyle} key={node.id}>
                   <div className="architecture-node-copy">
                     <strong>{node.label}</strong>
                     {node.detail ? <p>{node.detail}</p> : null}
@@ -33,6 +44,8 @@ export function ArchitectureDiagram({ architecture }: { architecture: Project["a
                         return (
                           <li
                             data-testid="architecture-connection"
+                            data-motion-connector
+                            data-motion-order={motionOrder}
                             data-from={edge.from}
                             data-to={edge.to}
                             aria-label={`${node.label} to ${destination}: ${relationship}`}
@@ -45,7 +58,7 @@ export function ArchitectureDiagram({ architecture }: { architecture: Project["a
                     </ul>
                   ) : <p className="architecture-terminal">Final system outcome</p>}
                 </article>
-              ))}
+              )})}
             </div>
           </section>
         ))}
