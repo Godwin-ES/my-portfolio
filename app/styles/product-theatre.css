@@ -279,6 +279,58 @@
   .system-node, .system-track-live, .system-packet { opacity: 1 !important; transform: none !important; }
 }
 
+/* Project exhibit transitions ---------------------------------------------- */
+.theatre-stage-shell { position: relative; }
+.theatre-progress {
+  height: 2px;
+  margin: 2px 18px 12px;
+  overflow: hidden;
+  border-radius: 99px;
+  background: rgba(177, 201, 193, .15);
+}
+.theatre-progress i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #72aaa5, #b8d7d0);
+  transition: width 560ms var(--ease-expressive);
+}
+
+.theatre-stage { position: relative; overflow: hidden; }
+.theatre-stage::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), transparent 72%);
+  opacity: .72;
+}
+.theatre-stage-engineering::before { background: linear-gradient(90deg, #356f83, #7fb2b8, transparent 78%); }
+.theatre-stage-grid > * { animation: theatre-content-enter 620ms var(--ease-expressive) both; }
+.theatre-stage-grid > .theatre-copy { animation-delay: 80ms; }
+.theatre-copy > * { animation: theatre-copy-resolve 520ms var(--ease-expressive) both; }
+.theatre-copy > :nth-child(2) { animation-delay: 55ms; }
+.theatre-copy > :nth-child(3) { animation-delay: 95ms; }
+.theatre-copy > :nth-child(4) { animation-delay: 135ms; }
+.theatre-copy > :nth-child(5) { animation-delay: 175ms; }
+.theatre-copy > :nth-child(n + 6) { animation-delay: 215ms; }
+
+::view-transition-old(selected-project-stage) { animation: theatre-view-out 180ms ease both; }
+::view-transition-new(selected-project-stage) { animation: theatre-view-in 480ms var(--ease-expressive) both; }
+
+@keyframes theatre-content-enter { from { opacity: 0; transform: translateY(18px); } }
+@keyframes theatre-copy-resolve { from { opacity: 0; transform: translateY(12px); } }
+@keyframes theatre-view-out { to { opacity: 0; transform: translateY(-8px) scale(.99); } }
+@keyframes theatre-view-in { from { opacity: 0; transform: translateY(12px) scale(.99); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .theatre-progress i { transition: none; }
+  .theatre-stage-grid > *, .theatre-copy > * { animation: none !important; }
+  ::view-transition-old(selected-project-stage), ::view-transition-new(selected-project-stage) { animation: none !important; }
+}
+
 /* Homepage interaction details --------------------------------------------- */
 .collection-gateway {
   --gateway-rx: 0deg;

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { useState } from "react";
+import { startTransition, useState, ViewTransition } from "react";
 import { ProjectTheatreStage } from "@/components/project-theatre-stage";
 import type { Project } from "@/lib/project-types";
 
@@ -11,6 +11,7 @@ export function ProjectTheatre({ projects }: { projects: Project[] }) {
   if (!projects.length) return null;
 
   const activeProject = projects.find(({ slug }) => slug === activeSlug) ?? projects[0];
+  const activeIndex = projects.findIndex(({ slug }) => slug === activeProject.slug);
 
   return (
     <section id="work" className="section project-theatre-section" aria-labelledby="project-theatre-title">
@@ -30,7 +31,7 @@ export function ProjectTheatre({ projects }: { projects: Project[] }) {
               const active = project.slug === activeProject.slug;
               return (
                 <div className={`theatre-option ${active ? "is-active" : ""}`} key={project.slug}>
-                  <button type="button" aria-label={`Select ${project.title}`} aria-pressed={active} onClick={() => setActiveSlug(project.slug)}>
+                  <button type="button" aria-label={`Select ${project.title}`} aria-pressed={active} onClick={() => startTransition(() => setActiveSlug(project.slug))}>
                     <span>{String(index + 1).padStart(2, "0")}</span>
                     <strong>{project.title}</strong>
                     <small>{project.category.split("·")[0].trim()}</small>
@@ -43,7 +44,10 @@ export function ProjectTheatre({ projects }: { projects: Project[] }) {
 
           <div className="theatre-stage-shell">
             <p className="sr-only" aria-live="polite">Showing {activeProject.title}</p>
-            {projects.map((project) => <ProjectTheatreStage key={project.slug} project={project} active={project.slug === activeProject.slug} />)}
+            <div className="theatre-progress" aria-hidden="true"><i style={{ width: `${((activeIndex + 1) / projects.length) * 100}%` }} /></div>
+            <ViewTransition name="selected-project-stage">
+              <ProjectTheatreStage key={activeProject.slug} project={activeProject} />
+            </ViewTransition>
           </div>
         </div>
       </div>

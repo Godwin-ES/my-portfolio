@@ -8,7 +8,7 @@ const projects = getFeaturedProjects();
 
 describe("ProjectTheatre", () => {
   it("orders the four selectors and opens RelayDesk by default", () => {
-    render(<ProjectTheatre projects={projects} />);
+    const { container } = render(<ProjectTheatre projects={projects} />);
     const selector = screen.getByLabelText("Choose a selected project");
     const buttons = within(selector).getAllByRole("button");
     expect(buttons.map((button) => button.textContent)).toEqual([
@@ -19,6 +19,7 @@ describe("ProjectTheatre", () => {
     ]);
     expect(buttons[0]).toHaveAttribute("aria-pressed", "true");
     expect(screen.getByTestId("active-theatre-stage")).toHaveTextContent("RelayDesk");
+    expect(container.querySelectorAll(".theatre-stage")).toHaveLength(1);
   });
 
   it("updates the stage, actions, and proof media without autoplay", () => {

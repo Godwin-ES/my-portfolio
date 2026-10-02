@@ -8,6 +8,9 @@ describe("project media", () => {
   it("defers the Loom iframe until the visitor chooses to play", () => {
     render(<LoomFacade loomId="abc123" title="ProposalFlow walkthrough" durationLabel="4 min" meta={{ thumbnailUrl: null, previewUrl: null, width: 16, height: 9 }} />);
     expect(screen.queryByTitle("ProposalFlow walkthrough")).not.toBeInTheDocument();
+    expect(screen.getByText("Video walkthrough")).toBeInTheDocument();
+    expect(screen.getByText("ProposalFlow walkthrough")).toBeInTheDocument();
+    expect(screen.getByText("4 min")).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: /play proposalflow walkthrough/i }));
     expect(screen.getByTitle("ProposalFlow walkthrough")).toHaveAttribute("src", expect.stringContaining("abc123"));
   });
