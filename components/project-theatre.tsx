@@ -13,19 +13,19 @@ export function ProjectTheatre({ projects }: { projects: Project[] }) {
   const activeProject = projects.find(({ slug }) => slug === activeSlug) ?? projects[0];
 
   return (
-    <section id="work" className="section project-theatre-section" aria-labelledby="project-theatre-title">
+    <section id="work" className="section project-theatre-section journey-chapter" aria-labelledby="project-theatre-title">
       <div className="container">
         <div className="theatre-heading">
           <div>
             <p className="eyebrow">Selected systems</p>
-            <h2 id="project-theatre-title">Four products. One engineering standard.</h2>
+            <h2 id="project-theatre-title">Four systems. Four different engineering problems.</h2>
           </div>
-          <p>Explore the product, the proof, and the decisions behind four systems built for real use—not just a polished demo.</p>
+          <p>Voice latency, user isolation, evidence, approvals, and constrained actions: each project exposes a different place where AI software can fail if the surrounding system is weak.</p>
         </div>
 
         <div className="project-theatre">
           <div className="theatre-selector" aria-label="Choose a selected project">
-            <p className="theatre-selector-label">PROJECT INDEX</p>
+            <p className="theatre-selector-label">SYSTEM INDEX</p>
             {projects.map((project, index) => {
               const active = project.slug === activeProject.slug;
               return (

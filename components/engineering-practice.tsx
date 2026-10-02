@@ -23,12 +23,12 @@ const principles = [
 
 export function EngineeringPractice() {
   return (
-    <section className="section practice-section" aria-labelledby="practice-title">
+    <section id="practice" className="section practice-section journey-chapter" aria-labelledby="practice-title">
       <div className="container practice-layout">
         <div className="practice-intro">
           <p className="eyebrow">Engineering practice</p>
-          <h2 id="practice-title">The details that turn AI capability into dependable software.</h2>
-          <p>Models are only one part of the system. I design the boundaries, state, failure behaviour, and interface around them with equal care.</p>
+          <h2 id="practice-title">The model is never the whole system.</h2>
+          <p>The work is usually decided by what surrounds it: action boundaries, durable state, evidence, recovery paths, and an interface that makes the system legible.</p>
         </div>
         <div className="practice-list">
           {principles.map((principle, index) => (

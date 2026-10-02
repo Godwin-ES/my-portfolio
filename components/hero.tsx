@@ -5,15 +5,15 @@ import { site } from "@/content/site";
 
 export function Hero() {
   return (
-    <section id="top" className="hero-section">
+    <section id="top" className="hero-section journey-chapter">
       <div className="hero-ambient" aria-hidden="true" />
       <div className="container hero-grid">
         <div className="hero-copy">
           <p className="eyebrow hero-eyebrow"><span aria-hidden="true" />{site.eyebrow}</p>
           <h1>
-            <span className="hero-title-line">AI Automation.</span>
-            <span className="hero-title-line hero-title-accent">AI Engineering.</span>
-            <span className="hero-title-line hero-title-outcome">One production mindset.</span>
+            <span className="hero-title-line">AI Engineering.</span>
+            <span className="hero-title-line hero-title-accent">AI Automation.</span>
+            <span className="hero-title-line hero-title-outcome">Built to operate.</span>
           </h1>
           <p className="hero-intro">{site.intro}</p>
           <div className="hero-actions">
@@ -27,7 +27,7 @@ export function Hero() {
         </div>
         <div className="hero-visual-wrap"><DualSignal /></div>
       </div>
-      <div className="container hero-footnote" aria-hidden="true"><span>Scroll to explore</span><i /><span>Lagos, Nigeria</span></div>
+      <div className="container hero-footnote" aria-hidden="true"><span>Scroll to follow the system</span><i /><span>Lagos, Nigeria</span></div>
     </section>
   );
 }

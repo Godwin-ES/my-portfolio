@@ -6,9 +6,10 @@ import sitemap from "@/app/sitemap";
 import { getWorkCollection } from "@/lib/work-collections";
 
 describe("portfolio metadata",()=>{
-  it("uses product-focused home metadata and a safe local URL default",()=>{
-    expect(HOME_TITLE).toBe("Godwin Ekanem — Software Engineer building AI products");
-    expect(HOME_DESCRIPTION).toMatch(/voice AI.*automation/i);
+  it("uses systems-first home metadata and a safe local URL default",()=>{
+    expect(HOME_TITLE).toBe("Godwin Ekanem — AI Engineer building software that operates beyond the demo");
+    expect(HOME_DESCRIPTION).toMatch(/real-time voice systems.*grounded AI products.*governed automation/i);
+    expect(HOME_DESCRIPTION).toMatch(/state.*reliability.*human review/i);
     if(!process.env.NEXT_PUBLIC_SITE_URL&&!process.env.VERCEL_PROJECT_PRODUCTION_URL&&!process.env.VERCEL_URL)expect(SITE_URL.toString()).toBe("http://localhost:3000/");
   });
 
