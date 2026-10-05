@@ -3,30 +3,28 @@ import { ExperienceTimeline } from "@/components/experience-timeline";
 import { AboutSection } from "@/components/about-section";
 import { ContactSection } from "@/components/contact-section";
 import { Hero } from "@/components/hero";
-import { ProjectTheatre } from "@/components/project-theatre";
+import { SelectedWork } from "@/components/selected-work";
 import { EngineeringPractice } from "@/components/engineering-practice";
 import { WorkGateways } from "@/components/work-gateways";
 import { getFeaturedProjects } from "@/lib/projects";
 
-it("positions AI Automation and AI Engineering as one production practice", async () => {
-  render(<><Hero /><ProjectTheatre projects={getFeaturedProjects()} /></>);
-  expect(screen.getByRole("heading", { level: 1 })).toHaveAccessibleName("AI Automation and AI Engineering. One production mindset.");
-  expect(screen.getByTestId("animated-discipline")).toHaveAttribute("aria-hidden", "true");
+it("leads with both disciplines and an accessible discipline switch", () => {
+  render(<><Hero stats={[{ value: 9, label: "systems built" }]} /><SelectedWork projects={getFeaturedProjects()} /></>);
+  expect(screen.getByRole("heading", { level: 1 })).toHaveAccessibleName("AI Automation & AI Engineering, built for production.");
   expect(screen.getByRole("link", { name: /explore selected work/i })).toHaveAttribute("href", "#work");
+  expect(screen.getByText("09")).toBeInTheDocument();
+  expect(screen.getByText(/Abuja, Nigeria/)).toBeInTheDocument();
 
-  const automationLane = screen.getByRole("button", { name: /View AI Automation system/i });
-  const engineeringLane = screen.getByRole("button", { name: /View AI Engineering system/i });
-  expect(automationLane).toHaveAttribute("aria-pressed", "true");
-  expect(engineeringLane).toHaveAttribute("aria-pressed", "false");
-  expect(screen.queryByText(/FLOW \/ A|BUILD \/ B/i)).not.toBeInTheDocument();
-  fireEvent.click(engineeringLane);
-  expect(engineeringLane).toHaveAttribute("aria-pressed", "true");
-  expect(screen.getByText(/Product architecture connects/i)).toBeInTheDocument();
-  expect(screen.getByText("Production system")).toBeInTheDocument();
+  const automation = screen.getByRole("button", { name: /View AI Automation system/i });
+  const engineering = screen.getByRole("button", { name: /View AI Engineering system/i });
+  expect(automation).toHaveAttribute("aria-pressed", "true");
+  expect(engineering).toHaveAttribute("aria-pressed", "false");
+  expect(screen.getByRole("list", { name: "AI Automation stages" })).toHaveTextContent("Guardrails");
+  fireEvent.click(engineering);
+  expect(engineering).toHaveAttribute("aria-pressed", "true");
+  expect(screen.getByText(/Product architecture that connects/i)).toBeInTheDocument();
+  expect(screen.getByRole("list", { name: "AI Engineering stages" })).toHaveTextContent("Intelligence");
   expect(screen.queryByText(/\d+%|\d+\+/)).not.toBeInTheDocument();
-
-  for (const title of ["RelayDesk", "EchoRun", "LeadLens", "ChatDocs"]) expect(screen.getByRole("button", { name: `Select ${title}` })).toBeInTheDocument();
-  expect(screen.queryByRole("button", { name: /Select SignBridge/i })).not.toBeInTheDocument();
 });
 
 it("routes the two bodies of work through equal collection gateways", () => {

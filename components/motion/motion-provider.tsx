@@ -2,7 +2,6 @@
 
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import { ReactLenis, useLenis } from "lenis/react";
-import { AmbientField } from "@/components/motion/ambient-field";
 import { gsap, ScrollTrigger } from "@/lib/motion/gsap";
 
 type MotionPreferences = { reducedMotion: boolean; finePointer: boolean; ready: boolean };
@@ -80,7 +79,6 @@ export function MotionProvider({ children }: { children: ReactNode }) {
   return (
     <MotionPreferencesContext.Provider value={contextValue}>
       {smoothScroll ? <><ReactLenis root options={{ autoRaf: false, smoothWheel: true, lerp: 0.105, anchors: true }} /><LenisScrollSync /></> : null}
-      <AmbientField />
       {children}
     </MotionPreferencesContext.Provider>
   );

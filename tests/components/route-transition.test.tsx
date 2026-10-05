@@ -25,13 +25,13 @@ describe("route transitions", () => {
     fireEvent.click(screen.getByRole("link", { name: "RelayDesk" }));
     expect(screen.getByTestId("route-transition")).toHaveAttribute("data-phase", "covering");
     expect(navigation.push).not.toHaveBeenCalled();
-    act(() => vi.advanceTimersByTime(180));
+    act(() => vi.advanceTimersByTime(420));
     expect(navigation.push).toHaveBeenCalledWith("/work/relaydesk");
 
     navigation.pathname = "/work/relaydesk";
     rerender(<RouteTransitionProvider><TransitionLink href="/work/relaydesk">RelayDesk</TransitionLink></RouteTransitionProvider>);
     expect(screen.getByTestId("route-transition")).toHaveAttribute("data-phase", "revealing");
-    act(() => vi.advanceTimersByTime(320));
+    act(() => vi.advanceTimersByTime(620));
     expect(screen.getByTestId("route-transition")).toHaveAttribute("data-phase", "idle");
   });
 

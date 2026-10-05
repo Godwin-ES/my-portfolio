@@ -8,6 +8,6 @@ export const site = {
   githubUrl: "https://github.com/Godwin-ES",
   resumeUrl: "/resume/Ekanem_Godwin_Resume.pdf",
   navigation: [{ label: "Work", href: "#work" },{ label: "Experience", href: "#experience" },{ label: "About", href: "#about" },{ label: "Contact", href: "#contact" }],
-  about: "I’m an Electrical & Electronics Engineering graduate who builds at the seam between AI systems and product software. That foundation keeps my work grounded in clear boundaries, durable state, deliberate failure paths, and the people operating the system.",
+  about: "I’m a software engineer working where AI systems meet product software. I build with clear boundaries, durable state, and deliberate failure paths, and I design for the people who run the system every day.",
   education: "B.Eng. Electrical & Electronics Engineering, Covenant University · 4.80/5.00"
 } as const;
