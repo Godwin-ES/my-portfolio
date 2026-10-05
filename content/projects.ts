@@ -122,7 +122,7 @@ const details: Record<string, Pick<Project, "title" | "collections" | "status" |
     featured: false,
   },
   "relaydesk": {
-    title: "RelayDesk", collections: ["ai-automation"], status: "live", media: { kind: "loom", status: "coming-soon" },
+    title: "RelayDesk", collections: ["ai-automation"], status: "live", media: { kind: "loom", status: "available", loomId: "ea0ea33c4a4e4b519192ee0dab89d24c", durationLabel: "5:00", poster: "https://cdn.loom.com/sessions/thumbnails/ea0ea33c4a4e4b519192ee0dab89d24c-da0d205a186798cd.gif" },
     links: [{ kind: "live", label: "Try the live agent", url: "https://koya-support-agent.vercel.app" }, { kind: "repository", label: "Source repository", url: "https://github.com/Godwin-ES/koya-support-agent" }],
     facts: [{ value: "7", label: "constrained support tools" }, { value: "15/15", label: "evaluation scenarios" }, { value: "5 min", label: "session safety limit" }],
     flow: [{ label: "Start a secure call" }, { label: "Understand the issue" }, { label: "Use a support tool" }, { label: "Confirm the outcome" }, { label: "Escalate when needed" }],

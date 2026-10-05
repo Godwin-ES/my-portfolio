@@ -23,7 +23,7 @@ describe("WorkCollectionLayout", () => {
     for (const row of rows) expect(within(row).queryAllByTestId("collection-stack-tag").length).toBeLessThanOrEqual(4);
     expect(screen.getByRole("button", { name: /Play LeadLens walkthrough/i })).toBeInTheDocument();
     expect(screen.getByText(/walkthrough link pending/i)).toBeInTheDocument();
-    expect(screen.getByText(/walkthrough coming soon/i)).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /Play RelayDesk walkthrough/i })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /Also explore AI Engineering/i })).toHaveAttribute("href", "/work/ai-engineering");
   });
 

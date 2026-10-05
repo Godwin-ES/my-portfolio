@@ -17,7 +17,7 @@ describe("project media", () => {
 
   it("renders explicit pending and coming-soon states", async () => {
     const pending = getProjectBySlug("content-studio")!;
-    const relay = getProjectBySlug("relaydesk")!;
+    const relay = { ...getProjectBySlug("relaydesk")!, media: { kind: "loom", status: "coming-soon" } as const };
     const { rerender } = render(await ProjectMedia({ project: pending }));
     expect(screen.getByText(/walkthrough link pending/i)).toBeInTheDocument();
     rerender(await ProjectMedia({ project: relay }));

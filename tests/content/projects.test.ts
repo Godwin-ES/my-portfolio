@@ -62,12 +62,9 @@ describe("portfolio project content", () => {
     expect(getWorkCollection("unknown")).toBeUndefined();
   });
 
-  it("keeps AI Engineering walkthrough-free and marks RelayDesk walkthrough as coming soon", () => {
+  it("keeps AI Engineering walkthrough-free and publishes the RelayDesk walkthrough", () => {
     for (const project of getCollectionProjects("ai-engineering")) expect(project.media.kind).not.toBe("loom");
-    expect(getProjectBySlug("relaydesk")?.media).toMatchObject({
-      kind: "loom",
-      status: "coming-soon",
-    });
+    expect(getProjectBySlug("relaydesk")?.media).toEqual({ kind: "loom", status: "available", loomId: "ea0ea33c4a4e4b519192ee0dab89d24c", durationLabel: "5:00", poster: "https://cdn.loom.com/sessions/thumbnails/ea0ea33c4a4e4b519192ee0dab89d24c-da0d205a186798cd.gif" });
   });
 
   it("publishes the supplied weekly walkthroughs and keeps Week 4 pending", () => {
