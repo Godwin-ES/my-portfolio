@@ -7,6 +7,8 @@ import { site } from "@/content/site";
 export function SiteHeader({ homePrefix = "", activeItem }: { homePrefix?: string; activeItem?: string }) {
   const [open, setOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>();
+  const [hidden, setHidden] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const mobileNavRef = useRef<HTMLElement>(null);
 
@@ -36,22 +38,37 @@ export function SiteHeader({ homePrefix = "", activeItem }: { homePrefix?: strin
     return () => observer.disconnect();
   }, [activeItem, homePrefix]);
 
+  useEffect(() => {
+    let lastY = window.scrollY;
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const y = window.scrollY;
+      setScrolled(y > 24);
+      if (Math.abs(y - lastY) > 6) setHidden(y > lastY && y > 320);
+      lastY = y;
+    };
+    const onScroll = () => { if (!frame) frame = requestAnimationFrame(update); };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => { window.removeEventListener("scroll", onScroll); if (frame) cancelAnimationFrame(frame); };
+  }, []);
+
   const currentItem = activeItem ?? activeSection;
 
   return (
-    <header className="site-header">
-      <div className="container header-inner">
+    <header className="site-header" data-hidden={hidden && !open} data-scrolled={scrolled} data-open={open}>
+      <div className="header-inner">
         <a className="brand" href={homePrefix ? `${homePrefix}#top` : "#top"} aria-label="Godwin Ekanem home">
-          <span className="brand-mark">GE</span>
-          <span>{site.name}</span>
+          <span className="brand-mark" aria-hidden="true"><i />GE</span>
+          <span className="brand-name">{site.name}</span>
         </a>
 
         <nav className="desktop-nav" aria-label="Primary navigation">
           {site.navigation.map((item) => (
-            <a key={item.href} href={`${homePrefix}${item.href}`} aria-current={currentItem === item.href ? (homePrefix ? "page" : "location") : undefined}>{item.label}</a>
+            <a key={item.href} href={`${homePrefix}${item.href}`} aria-current={currentItem === item.href ? (homePrefix ? "page" : "location") : undefined}><span>{item.label}</span></a>
           ))}
-          <a className="nav-resume" href={site.resumeUrl} target="_blank" rel="noreferrer">Résumé</a>
         </nav>
+        <a className="nav-resume" href={site.resumeUrl} target="_blank" rel="noreferrer"><span>Résumé</span></a>
 
         <button
           className="mobile-menu-button"
@@ -67,11 +84,12 @@ export function SiteHeader({ homePrefix = "", activeItem }: { homePrefix?: strin
       </div>
 
       <nav ref={mobileNavRef} id="mobile-navigation" className={`mobile-nav ${open ? "is-open" : ""}`} aria-label="Mobile navigation" aria-hidden={!open} inert={!open}>
-        <div className="container mobile-nav-inner">
-          {site.navigation.map((item) => (
-            <a key={item.href} href={`${homePrefix}${item.href}`} aria-current={currentItem === item.href ? (homePrefix ? "page" : "location") : undefined} onClick={() => setOpen(false)}>{item.label}</a>
+        <div className="mobile-nav-inner">
+          {site.navigation.map((item, index) => (
+            <a key={item.href} style={{ "--i": index } as React.CSSProperties} href={`${homePrefix}${item.href}`} aria-current={currentItem === item.href ? (homePrefix ? "page" : "location") : undefined} onClick={() => setOpen(false)}>{item.label}</a>
           ))}
-          <a href={site.resumeUrl} target="_blank" rel="noreferrer" onClick={() => setOpen(false)}>Résumé</a>
+          <a href={site.resumeUrl} target="_blank" rel="noreferrer" style={{ "--i": site.navigation.length } as React.CSSProperties} onClick={() => setOpen(false)}>Résumé</a>
+          <p className="mobile-nav-foot">{site.email}</p>
         </div>
       </nav>
     </header>

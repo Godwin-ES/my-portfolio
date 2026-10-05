@@ -4,3 +4,5 @@ export const toolkit = [
   { title: "Data & Infrastructure", items: ["PostgreSQL", "Supabase", "MongoDB", "Pinecone", "GCP", "Docker"] },
   { title: "Automation & Integration", items: ["n8n", "APIs", "Webhooks", "Firecrawl", "Apify"] }
 ] as const;
+
+export const marquee = ["Python", "TypeScript", "Next.js", "FastAPI", "LiveKit", "MCP", "Claude Agent SDK", "Agno", "Supabase", "Pinecone", "MongoDB", "n8n", "Playwright", "Deepgram", "MediaPipe", "Firecrawl", "Docker", "GCP"] as const;

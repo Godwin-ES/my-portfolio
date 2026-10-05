@@ -1,4 +1,5 @@
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { CollectionMotif } from "@/components/collection-gateway";
 import { CollectionProjectRow } from "@/components/collection-project-row";
 import { TransitionLink } from "@/components/navigation/route-transition";
 import { Reveal } from "@/components/reveal";
@@ -7,30 +8,17 @@ import { SiteHeader } from "@/components/site-header";
 import type { Project } from "@/lib/project-types";
 import { workCollections, type WorkCollection } from "@/lib/work-collections";
 
-function CollectionHeroMotif({ collection }: { collection: WorkCollection }) {
-  const labels = collection.motif === "orchestration"
-    ? ["Capture", "Validate", "Orchestrate", "Review", "Deliver"]
-    : ["Data", "Services", "Intelligence", "Interface"];
-
-  return (
-    <div className={`collection-hero-motif collection-hero-motif-${collection.motif}`} aria-hidden="true">
-      <div className="collection-motif-topline"><span>SYSTEM PATH</span><span>{collection.projectSlugs.length} BUILDS</span></div>
-      <div className="collection-motif-flow">
-        {labels.map((label, index) => <span key={label}><i>{String(index + 1).padStart(2, "0")}</i><b>{label}</b></span>)}
-      </div>
-      <p>{collection.motif === "orchestration" ? "From incoming work to governed outcome" : "From durable foundations to usable intelligence"}</p>
-    </div>
-  );
-}
-
 export function WorkCollectionLayout({ collection, projects }: { collection: WorkCollection; projects: Project[] }) {
   const otherCollection = workCollections.find(({ id }) => id !== collection.id)!;
+  const tone = collection.id === "ai-automation" ? "automation" : "engineering";
 
   return (
     <>
       <SiteHeader homePrefix="/" activeItem="#work" />
-      <main id="main-content" className={`collection-page collection-page-${collection.id}`} tabIndex={-1}>
+      <main id="main-content" className={`collection-page collection-page-${collection.id}`} data-tone={tone} tabIndex={-1}>
         <header className="collection-hero">
+          <div className="collection-hero-glow" aria-hidden="true" />
+          <span className="collection-hero-count" aria-hidden="true">{String(projects.length).padStart(2, "0")}</span>
           <div className="container">
             <TransitionLink className="collection-back" href="/#collections"><ArrowLeft aria-hidden="true" size={16} /> All work collections</TransitionLink>
             <div className="collection-hero-grid">
@@ -40,8 +28,10 @@ export function WorkCollectionLayout({ collection, projects }: { collection: Wor
                 <p>{collection.description}</p>
                 <div className="collection-hero-meta"><span>{projects.length} projects</span><i /><span>Architecture, proof & decisions</span></div>
               </Reveal>
-              <Reveal variant="resolve" className="collection-hero-motif-wrap" delayMs={100}>
-                <CollectionHeroMotif collection={collection} />
+              <Reveal variant="resolve" className="collection-hero-motif" delayMs={100}>
+                <div className="collection-motif-topline" aria-hidden="true"><span>System path</span><span>{collection.projectSlugs.length} builds</span></div>
+                <CollectionMotif motif={collection.motif} />
+                <p>{collection.motif === "orchestration" ? "From incoming work to governed outcome" : "From durable foundations to usable intelligence"}</p>
               </Reveal>
             </div>
           </div>
@@ -61,9 +51,9 @@ export function WorkCollectionLayout({ collection, projects }: { collection: Wor
 
         <Reveal as="section" variant="resolve" className="collection-next">
           <div className="container">
-            <TransitionLink href={`/work/${otherCollection.id}`} tone={otherCollection.id === "ai-automation" ? "automation" : "engineering"} aria-label={`Also explore ${otherCollection.title}`}>
+            <TransitionLink data-tone={otherCollection.id === "ai-automation" ? "automation" : "engineering"} data-cursor="Next" href={`/work/${otherCollection.id}`} tone={otherCollection.id === "ai-automation" ? "automation" : "engineering"} aria-label={`Also explore ${otherCollection.title}`}>
               <span><small>Also explore</small><strong>{otherCollection.title}</strong></span>
-              <ArrowUpRight aria-hidden="true" size={30} />
+              <span className="arrow-chip collection-next-chip"><ArrowUpRight aria-hidden="true" size={30} /></span>
             </TransitionLink>
           </div>
         </Reveal>

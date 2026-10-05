@@ -10,10 +10,10 @@ import type { Project } from "@/lib/project-types";
 export function CollectionProjectRow({ project, index }: { project: Project; index: number }) {
   return (
     <Reveal as="article" variant="resolve" className="collection-project-row" data-testid="collection-project" data-project-slug={project.slug}>
-      <div className="collection-project-media"><ProjectMedia project={project} priority={index < 2} /></div>
+      <span className="collection-project-number" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+      <div className="collection-project-media" data-cursor={project.media.kind === "loom" && project.media.status === "available" ? "Play" : undefined}><ProjectMedia project={project} priority={index < 2} /></div>
       <div className="collection-project-copy">
         <div className="collection-project-meta">
-          <span>{String(index + 1).padStart(2, "0")}</span>
           <ProjectStatus status={project.status} />
         </div>
         <p className="project-category">{project.category}</p>
@@ -25,7 +25,7 @@ export function CollectionProjectRow({ project, index }: { project: Project; ind
         </div>
         <ProjectActions links={project.links} compact />
         <TransitionLink className="collection-case-link" href={`/work/${project.slug}`}>
-          Explore the case study <ArrowUpRight aria-hidden="true" size={17} />
+          Explore the case study <span className="arrow-chip"><ArrowUpRight aria-hidden="true" size={17} /></span>
         </TransitionLink>
       </div>
     </Reveal>

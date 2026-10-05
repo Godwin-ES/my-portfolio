@@ -54,7 +54,7 @@ export function RouteTransitionProvider({ children }: { children: ReactNode }) {
     clearTimers();
     setTone(nextTone);
     updatePhase("covering");
-    navigationTimer.current = setTimeout(() => router.push(href), 180);
+    navigationTimer.current = setTimeout(() => router.push(href), 420);
     failsafeTimer.current = setTimeout(() => updatePhase("idle"), 1_800);
   };
 
@@ -64,7 +64,7 @@ export function RouteTransitionProvider({ children }: { children: ReactNode }) {
     if (phaseRef.current !== "covering") return;
     if (failsafeTimer.current) clearTimeout(failsafeTimer.current);
     updatePhase("revealing");
-    revealTimer.current = setTimeout(() => updatePhase("idle"), 320);
+    revealTimer.current = setTimeout(() => updatePhase("idle"), 620);
   }, [pathname]);
 
   useEffect(() => clearTimers, []);
@@ -73,7 +73,7 @@ export function RouteTransitionProvider({ children }: { children: ReactNode }) {
     <RouteTransitionContext.Provider value={{ beginNavigation, reducedMotion: !ready || reducedMotion }}>
       {children}
       <div className="route-transition" data-testid="route-transition" data-phase={phase} data-tone={tone} aria-hidden="true">
-        <span /><i /><b>GE / SYSTEM TRANSITION</b>
+        <span /><i /><b>GODWIN EKANEM</b>
       </div>
     </RouteTransitionContext.Provider>
   );

@@ -35,3 +35,11 @@ export function getAdjacentProjects(slug: string) {
     next: index < catalogue.length - 1 ? catalogue[index + 1] : undefined,
   };
 }
+
+export function getPortfolioStats() {
+  return [
+    { value: projects.length, label: "systems built" },
+    { value: projects.filter(({ status }) => status === "live").length, label: "live today" },
+    { value: projects.filter(({ media }) => media.kind === "loom" && media.status === "available").length, label: "video walkthroughs" },
+  ];
+}

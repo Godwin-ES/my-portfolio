@@ -36,13 +36,15 @@ export async function CaseStudyLayout({ project }: { project: Project }) {
   const returnPath = collection
     ? { href: `/work/${collection.id}`, label: collection.title }
     : { href: "/#work", label: "selected work" };
-  return <main id="main-content" className="case-study" tabIndex={-1}>
+  const tone = project.collections[0] === "ai-automation" ? "automation" : "engineering";
+  return <main id="main-content" className="case-study" data-tone={tone} tabIndex={-1}>
+    <div className="case-hero-glow" aria-hidden="true" />
     <div className="container case-back-row"><TransitionLink href={returnPath.href}><ArrowLeft aria-hidden="true" size={16} /> Back to {returnPath.label}</TransitionLink></div>
     <header className="container case-hero case-theatre-hero">
       <Reveal variant="resolve" className="case-proof">{media}</Reveal>
       <Reveal variant="editorial" className="case-hero-copy" delayMs={90}>
         <div className="case-hero-meta"><p className="eyebrow">{project.category}</p><ProjectStatus status={project.status} /></div>
-        <h1>{project.title}</h1><p>{project.summary}</p>
+        <h1>{project.title}</h1><p className="case-hero-summary">{project.summary}</p>
         <ProjectActions links={project.links} />
         <div className="case-stack">{project.stack.map((item) => <span key={item}>{item}</span>)}</div>
       </Reveal>
